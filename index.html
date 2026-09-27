@@ -281,6 +281,28 @@
     white-space:pre-line;
   }
 
+  .diagram-wrap{
+    margin:16px 0;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 14px 12px;
+  }
+  .diagram-wrap .diagram-cap{
+    font-size:12px;
+    font-weight:800;
+    color:var(--topic-color, var(--gold));
+    letter-spacing:.03em;
+    margin-bottom:10px;
+    text-align:center;
+  }
+  .diagram-wrap svg{width:100%;height:auto;display:block;}
+  .diagram-wrap .db{fill:var(--surface-3);stroke:var(--line);stroke-width:1;}
+  .diagram-wrap .db-accent{fill:var(--topic-color, var(--gold));fill-opacity:.16;stroke:var(--topic-color, var(--gold));stroke-width:1.3;}
+  .diagram-wrap .dt{fill:var(--ink);font-size:12.5px;font-family:"Segoe UI",Assistant,sans-serif;}
+  .diagram-wrap .dt-sm{fill:var(--ink-dim);font-size:10.5px;font-family:"Segoe UI",Assistant,sans-serif;}
+  .diagram-wrap .darrow{stroke:var(--ink-dim);stroke-width:1.6;fill:none;marker-end:url(#dArrow);}
+
   .laws{
     display:flex;flex-wrap:wrap;gap:6px;
     margin:12px 0 16px;
@@ -966,6 +988,19 @@
       tag:"שיעור פתיחה",
       title:"יסודות: איך לומדים משפט מאפס",
       laws:["חוק יסודות המשפט, התש״ם-1980"],
+      diagram:{
+        caption:"מדרג מקורות המשפט בישראל — כל שכבה כפופה לשכבה שמעליה",
+        svg:'<svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="מדרג מקורות המשפט">' +
+          '<defs><marker id="dArrowL0" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-dim)"/></marker></defs>' +
+          '<rect class="db-accent" x="170" y="14" width="300" height="46" rx="10"/><text class="dt" x="320" y="42" text-anchor="middle">1. חוקי יסוד</text>' +
+          '<line class="darrow" x1="320" y1="60" x2="320" y2="90" marker-end="url(#dArrowL0)"/>' +
+          '<rect class="db" x="140" y="94" width="360" height="46" rx="10"/><text class="dt" x="320" y="122" text-anchor="middle">2. חוקים רגילים (חקיקה ראשית)</text>' +
+          '<line class="darrow" x1="320" y1="140" x2="320" y2="170" marker-end="url(#dArrowL0)"/>' +
+          '<rect class="db" x="110" y="174" width="420" height="46" rx="10"/><text class="dt" x="320" y="202" text-anchor="middle">3. תקנות (חקיקת משנה)</text>' +
+          '<line class="darrow" x1="320" y1="220" x2="320" y2="250" marker-end="url(#dArrowL0)"/>' +
+          '<rect class="db" x="80" y="254" width="480" height="40" rx="10"/><text class="dt" x="320" y="279" text-anchor="middle">4. פסיקה (הלכה פסוקה)</text>' +
+          '</svg>'
+      },
       body:[
         "בואו נתחיל מהבסיס, לפני שנצלול לנושאים עצמם. במדינת ישראל אין 'ספר חוקים' אחד — יש כמה 'שכבות' של מקורות משפט, וכדאי להכיר את הסדר ביניהן לפני שממשיכים.",
         "1. חוקי יסוד — אלה החוקים החשובים ביותר, כמעין 'חוקה בהתהוות'. הם עוסקים בזכויות אדם בסיסיות (כמו חוק יסוד: כבוד האדם וחירותו) ובמבנה השלטון (הכנסת, הממשלה, הרשות השופטת). חקיקה רגילה לא יכולה לסתור אותם.",
@@ -1081,6 +1116,27 @@
       tag:"נושא 3",
       title:"דיני חיובים: חוזים ונזיקין",
       laws:["חוק החוזים (חלק כללי)","חוק החוזים (תרופות)","חוק החוזים האחידים","פקודת הנזיקין","חוק עוולות מסחריות, התשנ״ט-1999"],
+      diagram:{
+        caption:"ארבעת הסעדים בגין הפרת חוזה — ניתן לרוב לשלב יותר מאחד",
+        svg:'<svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="סעדים בגין הפרת חוזה">' +
+          '<defs><marker id="dArrowL3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-dim)"/></marker></defs>' +
+          '<rect class="db-accent" x="220" y="10" width="200" height="42" rx="10"/><text class="dt" x="320" y="36" text-anchor="middle">הפרת חוזה</text>' +
+          '<line class="darrow" x1="320" y1="52" x2="320" y2="72" marker-end="url(#dArrowL3)"/>' +
+          '<line class="darrow" x1="320" y1="72" x2="80" y2="100" marker-end="url(#dArrowL3)"/>' +
+          '<line class="darrow" x1="320" y1="72" x2="240" y2="100" marker-end="url(#dArrowL3)"/>' +
+          '<line class="darrow" x1="320" y1="72" x2="400" y2="100" marker-end="url(#dArrowL3)"/>' +
+          '<line class="darrow" x1="320" y1="72" x2="560" y2="100" marker-end="url(#dArrowL3)"/>' +
+          '<rect class="db" x="20" y="104" width="120" height="42" rx="10"/><text class="dt" x="80" y="130" text-anchor="middle">אכיפה</text>' +
+          '<rect class="db" x="180" y="104" width="120" height="42" rx="10"/><text class="dt" x="240" y="130" text-anchor="middle">ביטול</text>' +
+          '<rect class="db" x="340" y="104" width="120" height="42" rx="10"/><text class="dt" x="400" y="130" text-anchor="middle">פיצויים</text>' +
+          '<rect class="db" x="500" y="104" width="120" height="42" rx="10"/><text class="dt" x="560" y="130" text-anchor="middle">השבה</text>' +
+          '<text class="dt-sm" x="80" y="164" text-anchor="middle">הסעד העיקרי</text>' +
+          '<text class="dt-sm" x="240" y="164" text-anchor="middle">בצירוף השבה</text>' +
+          '<text class="dt-sm" x="400" y="164" text-anchor="middle">פיצויי ציפייה</text>' +
+          '<text class="dt-sm" x="560" y="164" text-anchor="middle">החזרת מה שניתן</text>' +
+          '<text class="dt-sm" x="320" y="196" text-anchor="middle">ניתן לרוב לתבוע כמה סעדים במקביל (למשל ביטול + השבה, או פיצויים)</text>' +
+          '</svg>'
+      },
       original:[
         {ref:"חוק החוזים (חלק כללי), תשל״ג-1973 — סעיף 12 (תום לב במשא ומתן)",
          text:"(א) במשא ומתן לקראת כריתתו של חוזה חייב אדם לנהוג בדרך מקובלת ובתום לב.\n(ב) צד שלא נהג בדרך מקובלת ולא בתום לב חייב לצד השני פיצויים בעד הנזק שנגרם לו עקב המשא ומתן או עקב כריתת החוזה, והוראות סעיפים 10, 13 ו-14 לחוק החוזים תרופות, יחולו בשינויים המחוייבים."},
@@ -1205,6 +1261,27 @@
       tag:"נושא 6",
       title:"בירור סכסוכים מחוץ לבתי משפט",
       laws:["חוק הבוררות","תקנות בתי המשפט (גישור)","תקנות בתי המשפט (רשימת מגשרים), תשע״ח-2017","חוק בתי המשפט (סעיפים 79א–79ב)","תקנות סדר הדין האזרחי, התשמ״ד-1984 — פרק ד׳: פגישת מהו״ת"],
+      diagram:{
+        caption:"שלוש דרכים לברר סכסוך — ומי מכריע בכל אחת",
+        svg:'<svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="דרכי בירור סכסוך">' +
+          '<defs><marker id="dArrowL6" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-dim)"/></marker></defs>' +
+          '<rect class="db-accent" x="250" y="10" width="140" height="42" rx="10"/><text class="dt" x="320" y="36" text-anchor="middle">סכסוך</text>' +
+          '<line class="darrow" x1="320" y1="52" x2="320" y2="72" marker-end="url(#dArrowL6)"/>' +
+          '<line class="darrow" x1="320" y1="72" x2="110" y2="100" marker-end="url(#dArrowL6)"/>' +
+          '<line class="darrow" x1="320" y1="72" x2="320" y2="100" marker-end="url(#dArrowL6)"/>' +
+          '<line class="darrow" x1="320" y1="72" x2="530" y2="100" marker-end="url(#dArrowL6)"/>' +
+          '<rect class="db" x="30" y="104" width="160" height="42" rx="10"/><text class="dt" x="110" y="130" text-anchor="middle">בית משפט</text>' +
+          '<rect class="db" x="240" y="104" width="160" height="42" rx="10"/><text class="dt" x="320" y="130" text-anchor="middle">בוררות</text>' +
+          '<rect class="db" x="450" y="104" width="160" height="42" rx="10"/><text class="dt" x="530" y="130" text-anchor="middle">גישור</text>' +
+          '<text class="dt-sm" x="110" y="160" text-anchor="middle">שופט מכריע —</text>' +
+          '<text class="dt-sm" x="110" y="176" text-anchor="middle">פס״ד מחייב, ניתן לערער</text>' +
+          '<text class="dt-sm" x="320" y="160" text-anchor="middle">בורר מכריע —</text>' +
+          '<text class="dt-sm" x="320" y="176" text-anchor="middle">פסק מחייב, ביטול מוגבל (ס׳ 24)</text>' +
+          '<text class="dt-sm" x="530" y="160" text-anchor="middle">מגשר מסייע —</text>' +
+          '<text class="dt-sm" x="530" y="176" text-anchor="middle">אין הכרעה, רק הסכמה</text>' +
+          '<text class="dt-sm" x="320" y="216" text-anchor="middle">פגישת מהו״ת עשויה להיות תנאי דיוני לפני הגשת תביעה מסוימת</text>' +
+          '</svg>'
+      },
       original:[
         {ref:"חוק הבוררות, תשכ״ח-1968 — סעיף 1 (הגדרות)",
          text:"'הסכם בוררות' — הסכם בכתב למסור לבוררות סכסוך שנתגלע בין הצדדים בעתיד, בין שנקוב בהסכם שם בורר או בורר מכריע ובין שלא לאו.\n'בורר' — בורר שנתמנה בהסכם בוררות או על פיו, לרבות בורר מכריע ובורר חליף.\n'פסק בוררות' — פסק שניתן על ידי בורר, לרבות פסק ביניים.\n'פסק בוררות-חוץ' — פסק בוררות שניתן מחוץ לישראל."},
@@ -1639,6 +1716,12 @@
         '</div>';
     }
 
+    var diagramHtml = '';
+    if(t.diagram){
+      diagramHtml =
+        '<div class="diagram-wrap"><div class="diagram-cap">' + t.diagram.caption + '</div>' + t.diagram.svg + '</div>';
+    }
+
     var quizNavHtml = t.mcq.map(function(_, qi){ return '<button type="button" data-qi="' + qi + '">' + (qi+1) + '</button>'; }).join('');
 
     section.innerHTML =
@@ -1648,6 +1731,7 @@
       '</div>' +
       '<div class="laws">' + lawsHtml + '</div>' +
       bodyHtml +
+      diagramHtml +
       originalHtml +
       '<div class="sub">' + t.sub + '</div>' +
       '<ul>' + pointsHtml + '</ul>' +
