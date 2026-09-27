@@ -561,6 +561,155 @@
   }
   .gift-box.opened .box-check{display:flex;}
 
+  .mode-nav{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    padding-top:14px;
+  }
+  .mode-nav a{
+    text-decoration:none;
+    color:var(--ink-dim);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 16px;
+    font-size:13.5px;
+    font-weight:700;
+  }
+  .mode-nav a:hover{color:var(--ink);border-color:var(--gold);}
+
+  .learn-section{
+    max-width:1200px;
+    margin:8px auto 0;
+    padding-block:6px 10px;
+    scroll-margin-top:16px;
+  }
+  .learn-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .learn-head h2{font-size:24px;}
+  .learn-head p{margin:0;color:var(--ink-dim);font-size:14px;max-width:60ch;}
+
+  .flash-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+  }
+  .flash-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    width:100%;max-width:520px;
+    font-size:13px;color:var(--ink-dim);font-weight:700;
+  }
+  .flash-card{
+    width:100%;max-width:520px;
+    height:220px;
+    perspective:1200px;
+    cursor:pointer;
+  }
+  .flash-inner{
+    position:relative;
+    width:100%;height:100%;
+    transition:transform .5s;
+    transform-style:preserve-3d;
+  }
+  .flash-card.flipped .flash-inner{transform:rotateY(180deg);}
+  .flash-face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;
+    border-radius:18px;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+    gap:10px;
+  }
+  .flash-front{background:var(--surface-3);}
+  .flash-back{
+    background:var(--surface-2);
+    transform:rotateY(180deg);
+  }
+  .flash-tag{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:.04em;}
+  .flash-term{font-size:20px;font-weight:800;line-height:1.4;}
+  .flash-def{font-size:15px;line-height:1.6;color:var(--ink);}
+  .flash-hint{font-size:12px;color:var(--ink-dim);}
+  .flash-controls{display:flex;gap:10px;}
+  .flash-controls button{
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    color:var(--ink);
+    border-radius:999px;
+    padding:9px 20px;
+    font-size:14px;font-weight:700;
+    cursor:pointer;
+  }
+  .flash-controls button.primary{
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    border:none;color:#fff;
+  }
+
+  .tf-wrap{
+    display:flex;flex-direction:column;align-items:center;gap:16px;
+  }
+  .tf-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    width:100%;max-width:560px;
+    font-size:13px;color:var(--ink-dim);font-weight:700;
+  }
+  .tf-card{
+    width:100%;max-width:560px;
+    background:var(--surface-3);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:26px 28px;
+    box-shadow:var(--shadow);
+  }
+  .tf-tag{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:.04em;margin-bottom:8px;}
+  .tf-statement{font-size:17px;font-weight:700;line-height:1.6;margin-bottom:18px;}
+  .tf-btns{display:flex;gap:12px;}
+  .tf-btns button{
+    flex:1;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background:var(--surface-2);
+    color:var(--ink);
+    font-size:15px;font-weight:800;
+    cursor:pointer;
+  }
+  .tf-btns button.true-btn:hover{border-color:var(--done);}
+  .tf-btns button.false-btn:hover{border-color:var(--wrong);}
+  .tf-btns button[disabled]{cursor:default;}
+  .tf-btns button.correct{background:color-mix(in srgb, var(--done) 20%, var(--surface-2));border-color:var(--done);}
+  .tf-btns button.wrong{background:color-mix(in srgb, var(--wrong) 20%, var(--surface-2));border-color:var(--wrong);}
+  .tf-explain{
+    margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);
+    font-size:14px;line-height:1.6;color:var(--ink-dim);display:none;
+  }
+  .tf-explain.show{display:block;}
+  .tf-next{
+    margin-top:16px;
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    border:none;color:#fff;
+    border-radius:999px;
+    padding:10px 22px;
+    font-size:14px;font-weight:800;
+    cursor:pointer;
+    display:none;
+  }
+  .tf-next.show{display:inline-block;}
+
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important;animation:none !important;}
   }
@@ -585,10 +734,65 @@
   </div>
 </header>
 
+<nav class="mode-nav">
+  <a href="#main">📖 שיעורים</a>
+  <a href="#flashSection">🗂️ כרטיסיות</a>
+  <a href="#tfSection">✅ נכון / לא נכון</a>
+  <a href="#surpriseBank">🎁 מאגר הפתעות</a>
+</nav>
+
 <div class="shell">
   <nav class="toc" id="toc"></nav>
   <main id="main"></main>
 </div>
+
+<section class="learn-section" id="flashSection">
+  <div class="learn-head">
+    <h2>🗂️ כרטיסיות לימוד</h2>
+    <p>לומדים מושגי מפתח בשיטת כרטיסיות: נסו לזכור את ההגדרה, ואז הפכו את הכרטיס כדי לבדוק את עצמכם.</p>
+  </div>
+  <div class="flash-wrap">
+    <div class="flash-meta"><span id="flashPos">1 / 1</span><span id="flashDeckLabel">כל הנושאים</span></div>
+    <div class="flash-card" id="flashCard">
+      <div class="flash-inner">
+        <div class="flash-face flash-front">
+          <span class="flash-tag" id="flashTagFront"></span>
+          <div class="flash-term" id="flashTerm"></div>
+          <span class="flash-hint">הקישו כדי לראות את התשובה</span>
+        </div>
+        <div class="flash-face flash-back">
+          <span class="flash-tag" id="flashTagBack"></span>
+          <div class="flash-def" id="flashDef"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flash-controls">
+      <button type="button" id="flashPrev">◀ הקודם</button>
+      <button type="button" id="flashShuffle">🔀 ערבוב</button>
+      <button type="button" id="flashNext" class="primary">הבא ▶</button>
+    </div>
+  </div>
+</section>
+
+<section class="learn-section" id="tfSection">
+  <div class="learn-head">
+    <h2>✅ נכון או לא נכון</h2>
+    <p>קביעות קצרות על החומר — חלקן נכונות וחלקן שגויות בכוונה. בדקו את עצמכם מהר, סעיף אחר סעיף.</p>
+  </div>
+  <div class="tf-wrap">
+    <div class="tf-meta"><span id="tfPos">שאלה 1 / 1</span><span id="tfScore">0 נכונות</span></div>
+    <div class="tf-card">
+      <div class="tf-tag" id="tfTag"></div>
+      <div class="tf-statement" id="tfStatement"></div>
+      <div class="tf-btns">
+        <button type="button" class="true-btn" id="tfTrueBtn">✔️ נכון</button>
+        <button type="button" class="false-btn" id="tfFalseBtn">❌ לא נכון</button>
+      </div>
+      <div class="tf-explain" id="tfExplain"></div>
+    </div>
+    <button type="button" class="tf-next" id="tfNextBtn">השאלה הבאה ▶</button>
+  </div>
+</section>
 
 <section class="surprise-bank" id="surpriseBank">
   <div class="surprise-bank-head">
@@ -1126,6 +1330,68 @@
     }
   ];
 
+  var flashcards = [
+    {tag:"שיעור פתיחה", term:"חוק יסוד", def:"חוק בעל מעמד-על, שחקיקה רגילה לא יכולה לסתור (למשל חוק יסוד: כבוד האדם וחירותו)."},
+    {tag:"שיעור פתיחה", term:"תקנות (חקיקת משנה)", def:"כללים שקובעת רשות מנהלית (בדרך כלל שר) מכוח הסמכה מפורשת בחוק, ובגבולות אותה הסמכה בלבד."},
+    {tag:"נושא 1", term:"מבחן המידתיות", def:"שלושה תנאים: התאמה לתכלית, נחיצות (אין אמצעי פוגעני פחות), ומידתיות במובן הצר (תועלת מול נזק)."},
+    {tag:"נושא 1", term:"חוק חופש המידע", def:"מקנה לאזרח זכות עקרונית לקבל מידע מרשות ציבורית, בכפוף לחריגים כמו ביטחון ופרטיות."},
+    {tag:"נושא 2", term:"סעיף 9 לחוק המקרקעין", def:"בעסקאות נוגדות — עדיפות למי שרכש ראשון בזמן ובתום לב, אלא אם השני נרשם בתום לב ובתמורה."},
+    {tag:"נושא 2", term:"משכון", def:"זכות קניינית להבטחת חיוב; תוקפו כלפי צד ג' טעון רישום ברשם המשכונות או החזקה בנכס."},
+    {tag:"נושא 3", term:"סעיף 12 לחוק החוזים", def:"מטיל חובת תום לב במשא ומתן לקראת כריתת חוזה — עוד לפני שהחוזה נחתם בפועל."},
+    {tag:"נושא 3", term:"עוולת הרשלנות", def:"דורשת הוכחת חובת זהירות, התרשלות, נזק וקשר סיבתי (סעיף 35 לפקודת הנזיקין)."},
+    {tag:"נושא 4", term:"חובת הגילוי (ביטוח)", def:"על המבוטח לגלות למבטח בשאלון עובדות מהותיות; הפרתה עשויה להפחית תגמולים או לבטל את הפוליסה."},
+    {tag:"נושא 4", term:"ביטוח אחריות", def:"סוג ביטוח שבו לצד שלישי ניזוק עשויה להיות זכות תביעה ישירה כלפי המבטח, גם שאינו צד לחוזה."},
+    {tag:"נושא 5", term:"היסוד הנפשי", def:"מחשבה פלילית (מודעות בפועל) או רשלנות (סטייה מזהירות סבירה) — נדרש להוכיחו לצד היסוד העובדתי."},
+    {tag:"נושא 5", term:"הגנה עצמית", def:"סייג לאחריות פלילית, המוכר בחוק העונשין, השולל אחריות בהתקיים תנאיו."},
+    {tag:"נושא 6", term:"סעיף 24 לחוק הבוררות", def:"רשימה סגורה של 10 עילות לביטול פסק בוררות — לא ניתן לערער עליו לגופו של עניין."},
+    {tag:"נושא 6", term:"פגישת מהו״ת", def:"פגישת מידע, היכרות ותיאום — תנאי דיוני להגשת תביעות מסוימות."},
+    {tag:"נושא 7", term:"אוחז כשורה", def:"מי שקיבל שטר בתום לב ותמורה לפני פירעונו — מוגן מפני רוב הטענות שהיו עומדות כלפי צד קודם."},
+    {tag:"נושא 7", term:"חוק צמצום השימוש במזומן", def:"מגביל עסקאות במזומן מעל תקרות, כאמצעי מרכזי במאבק בהון שחור והלבנת הון."},
+    {tag:"נושא 8", term:"הצמדה", def:"שימור הערך הריאלי של סכום כסף, על ידי עדכונו בהתאם לשינויי מדד המחירים."},
+    {tag:"נושא 8", term:"ריבית פיגורים", def:"תוספת הנגבית ספציפית בשל איחור בפירעון חוב, בנפרד מריבית הסכמית רגילה."},
+    {tag:"נושא 9", term:"עצמאות המבקר הפנימי", def:"המבקר כפוף לוועדת הביקורת/הדירקטוריון, לא להנהלה השוטפת — כדי להבטיח אובייקטיביות."},
+    {tag:"נושא 9", term:"תוכנית העבודה (ביקורת פנימית)", def:"מתווה את היקף ותחומי הביקורת לתקופה נתונה, ומאושרת על ידי ועדת הביקורת."},
+    {tag:"נושא 10", term:"עקרון השוויון (מכרזים)", def:"עקרון היסוד בדיני מכרזים: הזדמנות שווה והוגנת לכל המציעים הפוטנציאליים."},
+    {tag:"נושא 10", term:"ועדת מכרזים", def:"הגוף שבוחן הצעות ובוחר זוכה, לפי אמות מידה שפורסמו מראש בלבד."},
+    {tag:"נושא 11", term:"חוק אשראי הוגן", def:"מסדיר אשראי חוץ-בנקאי: תקרת ריבית מרבית, חובות גילוי ואיסור הטעיית לווים."},
+    {tag:"נושא 11", term:"מאגר נתוני אשראי", def:"מערכת המאפשרת לנותני אשראי לבחון היסטוריית החזרים כדי להעריך סיכון אשראי."},
+    {tag:"נושא 12", term:"KYC — הכר את הלקוח", def:"חובת זיהוי הלקוח ובעל השליטה בו, ובחינת מקור הכספים, לפני ביצוע פעולות."},
+    {tag:"נושא 12", term:"פעולה בלתי רגילה", def:"פעולה החורגת מדפוס הפעילות הרגיל של לקוח, המעוררת חשד סביר ומחייבת דיווח."},
+    {tag:"נושא 13", term:"התאמת הייעוץ", def:"על הבנק להכיר את פרופיל הסיכון והצרכים של הלקוח לפני מתן המלצת השקעה."},
+    {tag:"נושא 13", term:"כללי הגילוי הנאות (בנקאות)", def:"מחייבים את הבנק למסור ללקוח מידע ומסמכים ברורים על תנאי חשבון, ריביות ועמלות."}
+  ];
+
+  var trueFalseBank = [
+    {tag:"שיעור פתיחה", s:"תקנות יכולות לחרוג מגבולות ההסמכה שניתנה להן בחוק.", a:false, e:"תקנות (חקיקת משנה) חייבות להישאר בגבולות ההסמכה שבחוק; חריגה מהן עלולה לפסול את התקנה."},
+    {tag:"שיעור פתיחה", s:"חוקי יסוד עומדים בראש מדרג הנורמות במשפט הישראלי.", a:true, e:"חוקי יסוד הם בעלי מעמד-על, וחקיקה רגילה לא יכולה לסתור אותם."},
+    {tag:"נושא 1", s:"חוק חופש המידע מקנה זכות מוחלטת לקבל כל מידע מרשות ציבורית, ללא כל חריג.", a:false, e:"קיימים חריגים — כגון ביטחון המדינה, פרטיות וסודות מסחריים — שבהם ניתן לסרב למסור מידע."},
+    {tag:"נושא 1", s:"מבחן הנחיצות, אחד ממבחני המידתיות, בודק אם קיים אמצעי פוגעני פחות.", a:true, e:"מבחן הנחיצות בוחן שאין אמצעי חלופי שפגיעתו פחותה, שהיה מאפשר להשיג את אותה תכלית."},
+    {tag:"נושא 2", s:"הבעלות במקרקעין עוברת לרוכש ברגע חתימת חוזה המכר, גם בלי רישום.", a:false, e:"לפי סעיף 7 לחוק המקרקעין, העסקה נגמרת רק ברישום בפנקס המקרקעין; עד אז קיימת זכות חוזית בלבד."},
+    {tag:"נושא 2", s:"כדי שמשכון יהיה תקף כלפי צד שלישי, יש לרשום אותו ברשם המשכונות או להחזיק בנכס הממושכן.", a:true, e:"חוק המשכון קובע שאחת הדרכים הללו נדרשת לתוקף כלפי צדדים שלישיים, ולא רק בין הצדדים עצמם."},
+    {tag:"נושא 3", s:"חובת תום הלב לפי סעיף 12 לחוק החוזים חלה רק לאחר שהחוזה כבר נחתם.", a:false, e:"סעיף 12 חל כבר בשלב המשא ומתן לקראת כריתת החוזה — לפני שהחוזה נחתם."},
+    {tag:"נושא 3", s:"עוולת הרשלנות דורשת הוכחת חובת זהירות, התרשלות, נזק וקשר סיבתי.", a:true, e:"אלה ארבעת היסודות המצטברים הנדרשים כדי להקים אחריות ברשלנות."},
+    {tag:"נושא 4", s:"אי-גילוי בתום לב בשאלון ביטוח תמיד מבטל את הפוליסה כליל, בדיוק כמו גילוי במרמה.", a:false, e:"אי-גילוי תם לב בדרך כלל מוביל להפחתה יחסית של התגמולים; ביטול מוחלט שמור בעיקר למקרים של מרמה."},
+    {tag:"נושא 4", s:"בביטוח אחריות עשויה להיות לצד השלישי הניזוק זכות תביעה ישירה כלפי המבטח.", a:true, e:"למרות שהניזוק אינו צד לחוזה הביטוח, החוק מקנה לו לעיתים זכות תביעה ישירה כלפי המבטח."},
+    {tag:"נושא 5", s:"ניתן להרשיע אדם בעבירה פלילית רגילה מבלי להוכיח כלל יסוד נפשי כלשהו.", a:false, e:"ככלל נדרש להוכיח יסוד נפשי (מחשבה פלילית או רשלנות); רק בעבירות אחריות קפידה, שהן חריג מצומצם, אין צורך בכך."},
+    {tag:"נושא 5", s:"הגנה עצמית היא סייג המוכר בחוק העונשין לשלילת אחריות פלילית.", a:true, e:"הגנה עצמית, לצד צורך וכורח, מוכרת כסייג השולל אחריות פלילית בהתקיים תנאיה."},
+    {tag:"נושא 6", s:"אפשר לערער על פסק בוררות לגופו של עניין, בדיוק כמו על פסק דין רגיל.", a:false, e:"על פסק בוררות אפשר רק לבקש ביטול בעילות המצומצמות שבסעיף 24 לחוק הבוררות, לא לערער לגופו."},
+    {tag:"נושא 6", s:"בגישור, למגשר אין סמכות להכריע בסכסוך — הוא רק מסייע לצדדים להגיע להסכמה.", a:true, e:"זהו ההבדל המרכזי בין גישור לבוררות: במגשר אין סמכות הכרעה מחייבת."},
+    {tag:"נושא 7", s:"שטר 'למוכ״ז' מסוחר רק באמצעות הסבה (חתימת גב), ולא במסירה בלבד.", a:false, e:"ההפך הוא הנכון: שטר 'למוכ״ז' עובר במסירה בלבד; שטר 'לפקודת' פלוני הוא שדורש הסבה."},
+    {tag:"נושא 7", s:"אוחז כשורה מוגן מפני רוב הטענות שהיו יכולות לעמוד כלפי צד קודם לשטר.", a:true, e:"זהו עיקרון היסוד של מעמד אוחז כשורה בפקודת השטרות."},
+    {tag:"נושא 8", s:"ריבית והצמדה אינן יכולות לחול יחד על אותו חוב.", a:false, e:"שני הרכיבים נפרדים במהותם ויכולים לחול במצטבר על אותו חוב."},
+    {tag:"נושא 8", s:"בהיעדר הסכמה חוזית על שיעור ריבית, יחול שיעור ברירת המחדל הקבוע בתקנות.", a:true, e:"בהיעדר הסכמה, יחול שיעור 'הריבית וההצמדה כחוק' הקבוע בתקנות מכוח החוק."},
+    {tag:"נושא 9", s:"המבקר הפנימי כפוף ניהולית למנכ״ל החברה בעבודתו המקצועית השוטפת.", a:false, e:"כדי להבטיח עצמאות, המבקר הפנימי כפוף לוועדת הביקורת/הדירקטוריון, לא להנהלה השוטפת."},
+    {tag:"נושא 9", s:"תוכנית העבודה של הביקורת הפנימית טעונה אישור ועדת הביקורת.", a:true, e:"זהו חלק ממנגנון הפיקוח על פעילות הביקורת הפנימית."},
+    {tag:"נושא 10", s:"מותר לוועדת מכרזים לשנות את תנאי הסף לאחר פרסום המכרז, כל עוד היא סבורה שזה משרת את האינטרס הציבורי.", a:false, e:"שינוי תנאי סף לאחר פרסום פוגע בעקרון השוויון בין המציעים ועלול לפסול את ההליך כולו."},
+    {tag:"נושא 10", s:"פגם מהותי בהליך מכרז עלול לפסול את הזכייה גם אם ההצעה הזוכה הייתה הטובה ביותר כלכלית.", a:true, e:"תקינות ההליך עצמו היא תנאי הכרחי, בנפרד מהשאלה אם התוצאה הכלכלית הייתה הטובה ביותר."},
+    {tag:"נושא 11", s:"חוק אשראי הוגן חל בעיקר על בנקים מסחריים.", a:false, e:"החוק חל בעיקר על נותני אשראי חוץ-בנקאי; דיני הבנקאות מוסדרים בעיקר בחוקים נפרדים."},
+    {tag:"נושא 11", s:"מאגר נתוני האשראי מסייע לנותני אשראי להעריך את סיכון האשראי של לקוח.", a:true, e:"המאגר מרכז מידע על היסטוריית אשראי והחזרים, המשמש להערכת סיכון."},
+    {tag:"נושא 12", s:"חובת ה-KYC (הכר את הלקוח) חלה רק על בנקים, ולא על אף גורם נוסף.", a:false, e:"החובה חלה גם על גופים מחויבים נוספים, כגון נותני שירותי מטבע, ובמקרים מסוימים עורכי דין ורואי חשבון."},
+    {tag:"נושא 12", s:"עבירת הלבנת הון היא עבירה נפרדת מעבירת המקור שיצרה את הרכוש.", a:true, e:"נדרש להוכיח קשר בין הפעולה למקור פלילי, אך מדובר בעבירה עצמאית ונפרדת מעבירת המקור."},
+    {tag:"נושא 13", s:"כללי הבנקאות (ייעוץ להשקעות) מתירים לבנק להמליץ המלצה זהה לכל הלקוחות, ללא בחינה אישית.", a:false, e:"חובת התאמת הייעוץ מחייבת את הבנק להכיר את פרופיל הסיכון והצרכים של כל לקוח באופן אישי."},
+    {tag:"נושא 13", s:"כללי הגילוי הנאות מחייבים את הבנק למסור ללקוח מידע ברור על תנאי החשבון, ריביות ועמלות.", a:true, e:"זו מטרתם המרכזית של כללי הגילוי הנאות — להבטיח שקיפות מלאה ביחסי הבנק-לקוח."}
+  ];
+
   var toc = document.getElementById('toc');
   var main = document.getElementById('main');
   var STORAGE_KEY = 'biz-law-progress-v2';
@@ -1429,5 +1695,115 @@
   document.getElementById('surpriseTop').addEventListener('click', function(){
     document.getElementById('surpriseBank').scrollIntoView({behavior:'smooth', block:'start'});
   });
+
+  (function initFlashcards(){
+    var order = flashcards.map(function(_, i){ return i; });
+    var pos = 0;
+
+    var cardEl = document.getElementById('flashCard');
+    var termEl = document.getElementById('flashTerm');
+    var defEl = document.getElementById('flashDef');
+    var tagFrontEl = document.getElementById('flashTagFront');
+    var tagBackEl = document.getElementById('flashTagBack');
+    var posEl = document.getElementById('flashPos');
+
+    function render(){
+      var card = flashcards[order[pos]];
+      cardEl.classList.remove('flipped');
+      termEl.textContent = card.term;
+      defEl.textContent = card.def;
+      tagFrontEl.textContent = card.tag;
+      tagBackEl.textContent = card.tag;
+      posEl.textContent = (pos + 1) + ' / ' + flashcards.length;
+    }
+    function shuffle(){
+      for(var i = order.length - 1; i > 0; i--){
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+      }
+      pos = 0;
+      render();
+    }
+
+    cardEl.addEventListener('click', function(){ cardEl.classList.toggle('flipped'); });
+    document.getElementById('flashNext').addEventListener('click', function(){
+      pos = (pos + 1) % flashcards.length;
+      render();
+    });
+    document.getElementById('flashPrev').addEventListener('click', function(){
+      pos = (pos - 1 + flashcards.length) % flashcards.length;
+      render();
+    });
+    document.getElementById('flashShuffle').addEventListener('click', shuffle);
+
+    render();
+  })();
+
+  (function initTrueFalse(){
+    var order = trueFalseBank.map(function(_, i){ return i; });
+    var pos = 0;
+    var correctCount = 0;
+    var answered = false;
+
+    var tagEl = document.getElementById('tfTag');
+    var stmtEl = document.getElementById('tfStatement');
+    var trueBtn = document.getElementById('tfTrueBtn');
+    var falseBtn = document.getElementById('tfFalseBtn');
+    var explainEl = document.getElementById('tfExplain');
+    var nextBtn = document.getElementById('tfNextBtn');
+    var posEl = document.getElementById('tfPos');
+    var scoreEl = document.getElementById('tfScore');
+
+    function shuffle(arr){
+      for(var i = arr.length - 1; i > 0; i--){
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+    }
+    shuffle(order);
+
+    function render(){
+      answered = false;
+      var item = trueFalseBank[order[pos]];
+      tagEl.textContent = item.tag;
+      stmtEl.textContent = item.s;
+      trueBtn.disabled = false;
+      falseBtn.disabled = false;
+      trueBtn.classList.remove('correct','wrong');
+      falseBtn.classList.remove('correct','wrong');
+      explainEl.classList.remove('show');
+      explainEl.textContent = 'הסבר: ' + item.e;
+      nextBtn.classList.remove('show');
+      posEl.textContent = 'שאלה ' + (pos + 1) + ' / ' + trueFalseBank.length;
+      scoreEl.textContent = correctCount + ' נכונות';
+    }
+
+    function answer(userSaysTrue){
+      if(answered) return;
+      answered = true;
+      var item = trueFalseBank[order[pos]];
+      var isCorrect = (userSaysTrue === item.a);
+      if(isCorrect) correctCount++;
+      trueBtn.disabled = true;
+      falseBtn.disabled = true;
+      var chosenBtn = userSaysTrue ? trueBtn : falseBtn;
+      var rightBtn = item.a ? trueBtn : falseBtn;
+      rightBtn.classList.add('correct');
+      if(!isCorrect) chosenBtn.classList.add('wrong');
+      explainEl.classList.add('show');
+      nextBtn.classList.add('show');
+      scoreEl.textContent = correctCount + ' נכונות';
+    }
+
+    trueBtn.addEventListener('click', function(){ answer(true); });
+    falseBtn.addEventListener('click', function(){ answer(false); });
+    nextBtn.addEventListener('click', function(){
+      pos = (pos + 1) % trueFalseBank.length;
+      if(pos === 0) shuffle(order);
+      render();
+    });
+
+    render();
+  })();
 })();
 </script>
