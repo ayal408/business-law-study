@@ -2,61 +2,22 @@
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f5f1e6;
-    --surface:#ffffff;
-    --surface-2:#efe7d4;
-    --surface-3:#e7dcc0;
-    --ink:#241f18;
-    --ink-dim:#645c48;
-    --line:#ddd0ad;
-    --accent:#8a2f2f;
-    --accent-2:#1f5c52;
-    --accent-ink:#ffffff;
-    --gold:#b1791f;
-    --gold-soft:#f1e2bd;
-    --done:#3f6b4c;
-    --wrong:#b23a3a;
-    --shadow: 0 10px 30px -14px rgba(60,40,10,.28);
-    color-scheme: light;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#171310;
-      --surface:#231d17;
-      --surface-2:#2c241b;
-      --surface-3:#362c1f;
-      --ink:#f1e8d6;
-      --ink-dim:#c1b393;
-      --line:#453a29;
-      --accent:#e8918f;
-      --accent-2:#7fc6b6;
-      --accent-ink:#201010;
-      --gold:#e0b25b;
-      --gold-soft:#3a2f1c;
-      --done:#7fc79a;
-      --wrong:#e78a8a;
-      --shadow: 0 10px 30px -14px rgba(0,0,0,.6);
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#171310;
-    --surface:#231d17;
-    --surface-2:#2c241b;
-    --surface-3:#362c1f;
-    --ink:#f1e8d6;
-    --ink-dim:#c1b393;
-    --line:#453a29;
-    --accent:#e8918f;
-    --accent-2:#7fc6b6;
-    --accent-ink:#201010;
-    --gold:#e0b25b;
-    --gold-soft:#3a2f1c;
-    --done:#7fc79a;
-    --wrong:#e78a8a;
+    --bg:#0f0c24;
+    --surface:rgba(255,255,255,.06);
+    --surface-2:rgba(255,255,255,.09);
+    --surface-3:rgba(255,255,255,.13);
+    --ink:#f3efff;
+    --ink-dim:#a9a3c9;
+    --line:rgba(255,255,255,.14);
+    --accent:#f72585;
+    --accent-2:#4cc9f0;
+    --accent-ink:#0f0c24;
+    --gold:#ffd60a;
+    --gold-soft:rgba(255,214,10,.14);
+    --done:#5fd68f;
+    --wrong:#ff6b8b;
     --shadow: 0 10px 30px -14px rgba(0,0,0,.6);
     color-scheme: dark;
   }
@@ -65,19 +26,22 @@
   body{
     margin:0;
     background:
-      radial-gradient(ellipse at top left, color-mix(in srgb, var(--gold) 10%, transparent), transparent 55%),
+      radial-gradient(circle at 80% 0%, #3b1d7a 0%, transparent 55%),
+      radial-gradient(circle at 0% 100%, #7a1d5a 0%, transparent 50%),
       var(--bg);
+    background-attachment:fixed;
     color:var(--ink);
-    font-family:'Assistant',system-ui,sans-serif;
+    font-family:"Segoe UI","Assistant",Arial,sans-serif;
     direction:rtl;
     padding-inline:16px;
   }
   h1,h2,h3{
-    font-family:'Frank Ruhl Libre',serif;
+    font-family:inherit;
+    font-weight:800;
     text-wrap:balance;
     margin:0;
   }
-  a{color:var(--accent);}
+  a{color:var(--accent-2);}
   button{font-family:inherit;}
 
   .shell{
@@ -101,14 +65,32 @@
     gap:12px;
     border-bottom:1px solid var(--line);
   }
+  .title-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .title-gift{
+    font-size:52px;
+    line-height:1;
+    display:inline-block;
+    animation:bob 2.4s ease-in-out infinite;
+    filter:drop-shadow(0 6px 14px rgba(247,37,133,.45));
+  }
+  @keyframes bob{50%{transform:translateY(-8px) rotate(-6deg);}}
   .eyebrow{
     font-size:13px;
     letter-spacing:.08em;
     color:var(--gold);
     font-weight:800;
   }
-  header.top h1{font-size:clamp(30px,4.4vw,46px);}
+  header.top h1{
+    font-size:clamp(30px,4.4vw,46px);
+    background:linear-gradient(90deg,var(--gold),var(--accent),var(--accent-2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
   header.top p{color:var(--ink-dim);margin:0;max-width:68ch;line-height:1.65;}
+  @media (prefers-reduced-motion: reduce){
+    .title-gift{animation:none;}
+  }
 
   .stats-row{
     display:flex;
@@ -413,14 +395,153 @@
     cursor:pointer;
   }
 
+  .surprise-bank{
+    max-width:1200px;
+    margin:8px auto 0;
+    padding-block:6px 10px;
+  }
+  .surprise-bank-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:16px;
+    flex-wrap:wrap;
+  }
+  .surprise-bank-head h2{font-size:24px;}
+  .surprise-bank-head p{
+    margin:0;
+    color:var(--ink-dim);
+    font-size:14px;
+    max-width:60ch;
+  }
+  .gift-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+    gap:16px;
+  }
+  .gift-box{
+    position:relative;
+    border:none;
+    background:none;
+    cursor:pointer;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    font-family:inherit;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .gift-box .box-num{
+    font-size:11px;
+    font-weight:800;
+    color:var(--ink-dim);
+    letter-spacing:.04em;
+  }
+  .gift-box .box-art{
+    width:100%;
+    aspect-ratio:1/0.92;
+    position:relative;
+    filter:drop-shadow(0 10px 16px -8px rgba(0,0,0,.35));
+    transition:transform .18s ease;
+  }
+  .gift-box:hover .box-art{transform:translateY(-4px) rotate(-1deg);}
+  .gift-box:active .box-art{transform:translateY(-1px) scale(.97);}
+  .gift-box.opened .box-art{transform:translateY(-2px) rotate(0deg) scale(1.02);}
+
+  .box-lid{
+    position:absolute;
+    inset-inline:6%;
+    top:6%;
+    height:26%;
+    background:var(--box-color, var(--gold));
+    border-radius:6px 6px 2px 2px;
+    transform-origin:0% 100%;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+    box-shadow:0 3px 6px -2px rgba(0,0,0,.35);
+    z-index:3;
+  }
+  .box-lid::after{
+    content:"";
+    position:absolute;
+    left:50%;top:-8%;
+    width:22%;height:40%;
+    transform:translateX(-50%);
+    background:var(--surface);
+    border-radius:0 0 10px 10px;
+  }
+  .gift-box.opened .box-lid{
+    transform:translateY(-58%) rotate(-38deg);
+    opacity:.92;
+  }
+  .box-body{
+    position:absolute;
+    inset-inline:4%;
+    bottom:4%;
+    top:30%;
+    background:color-mix(in srgb, var(--box-color, var(--gold)) 82%, var(--ink) 6%);
+    border-radius:4px 4px 8px 8px;
+    z-index:1;
+  }
+  .box-body::before{
+    content:"";
+    position:absolute;
+    inset-block:0;
+    left:50%;
+    width:16%;
+    transform:translateX(-50%);
+    background:color-mix(in srgb, var(--box-color, var(--gold)) 55%, black 10%);
+  }
+  .box-glow{
+    position:absolute;
+    inset-inline:14%;
+    top:22%;
+    height:14%;
+    border-radius:50%;
+    background:radial-gradient(circle, #fff8 0%, transparent 70%);
+    opacity:0;
+    z-index:2;
+    transition:opacity .3s ease, transform .4s ease;
+    transform:scale(.6);
+  }
+  .gift-box.opened .box-glow{opacity:1;transform:scale(1.6);}
+
+  .gift-box .box-label{
+    font-size:13px;
+    font-weight:700;
+    color:var(--ink);
+    text-align:center;
+    line-height:1.35;
+  }
+  .gift-box .box-check{
+    position:absolute;
+    top:-6px;
+    inset-inline-end:6%;
+    width:20px;height:20px;
+    border-radius:50%;
+    background:var(--done);
+    color:#fff;
+    font-size:11px;
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:4;
+    box-shadow:0 2px 5px -1px rgba(0,0,0,.4);
+  }
+  .gift-box.opened .box-check{display:flex;}
+
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important;animation:none !important;}
   }
 </style>
 
 <header class="top">
-  <span class="eyebrow">מיקוד לבחינה &middot; מועד סתיו 2024</span>
-  <h1>משפט עסקי — אתר לימוד ממוקד</h1>
+  <div class="title-row">
+    <span class="title-gift">⚖️</span>
+    <div>
+      <span class="eyebrow">מיקוד לבחינה &middot; מועד סתיו 2024</span>
+      <h1>משפט עסקי — אתר לימוד ממוקד</h1>
+    </div>
+  </div>
   <p>13 הנושאים המחייבים לבחינה, מרוכזים לפי סדר רשימת המיקוד: החקיקה הרלוונטית לכל נושא, תקציר עקרונות המפתח, וחידון קצר על סעיפי החוק בכל נושא. החומר לבחינה כולל חקיקה ראשית ופסיקה בקשר לנושאים המפורטים.</p>
   <div class="stats-row">
     <div class="progress-wrap">
@@ -428,7 +549,7 @@
       <span id="progressLabel">0 / 13 נושאים סומנו כנלמדו</span>
     </div>
     <div class="score-pill">חידונים: <b id="quizScore">0</b> / <span id="quizTotal">0</span> תשובות נכונות</div>
-    <button class="surprise-btn" id="surpriseTop" type="button"><span class="emoji">🎁</span> קופסת הפתעה</button>
+    <button class="surprise-btn" id="surpriseTop" type="button"><span class="emoji">🎁</span> אל מאגר ההפתעות</button>
   </div>
 </header>
 
@@ -437,11 +558,17 @@
   <main id="main"></main>
 </div>
 
+<section class="surprise-bank" id="surpriseBank">
+  <div class="surprise-bank-head">
+    <h2>🎁 מאגר קופסאות ההפתעה</h2>
+    <p>קופסה לכל נושא — פתחו כדי לקבל שאלת חידון אקראית או עובדה מפתיעה מאותו נושא.</p>
+  </div>
+  <div class="gift-grid" id="giftGrid"></div>
+</section>
+
 <footer class="note">
   מבוסס על "רשימת מיקוד לבחינה בנושא משפט עסקי החל ממועד סתיו 2024". התקציר והחידונים נועדו לארגון החומר ללמידה ואינם תחליף לקריאת הטקסט המלא של החוקים והפסיקה. כל הנתונים (התקדמות וציוני חידון) נשמרים בדפדפן שלך בלבד.
 </footer>
-
-<button class="fab" id="surpriseFab" type="button"><span class="emoji">🎁</span> הפתעה</button>
 
 <div class="modal-overlay" id="modalOverlay" hidden>
   <div class="modal-box" id="modalBox" role="dialog" aria-modal="true">
@@ -595,27 +722,43 @@
       title:"בירור סכסוכים מחוץ לבתי משפט",
       laws:["חוק הבוררות","תקנות בתי המשפט (גישור)","תקנות בתי המשפט (רשימת מגשרים), תשע״ח-2017","חוק בתי המשפט (סעיפים 79א–79ב)","תקנות סדר הדין האזרחי, התשמ״ד-1984 — פרק ד׳: פגישת מהו״ת"],
       body:[
-        "בוררות היא הליך שבו הצדדים מוסרים את הסכסוך להכרעתו המחייבת של בורר, על יסוד הסכם בוררות; פסק הבורר ניתן לאישור/ביטול בבית המשפט רק בעילות מצומצמות הקבועות בחוק.",
-        "גישור הוא הליך מבוסס הסכמות שבו מגשר ניטרלי מסייע לצדדים להגיע להסכמה, ללא סמכות הכרעה; ההסכמה איננה מחייבת עד לחתימה עליה.",
+        "בוררות היא הליך שבו הצדדים מוסרים את הסכסוך להכרעתו המחייבת של בורר, על יסוד 'הסכם בוררות' (סעיף 1 לחוק הבוררות) — הסכם בכתב למסור לבוררות סכסוך שנתגלע בין הצדדים, בין קיים ובין עתיד להתגלע. פסק הבורר ניתן לאישור/ביטול בבית המשפט רק בעילות מצומצמות הקבועות בחוק.",
+        "מינוי הבורר: אם לא נקבעה בהסכם דרך למינוי בורר, או שהצדדים לא הגיעו להסכמה, רשאי בית המשפט למנות בורר לפי בקשת בעל דין (סעיפים 8–9 לחוק הבוררות).",
+        "מהלך הבוררות (פרק ד׳ לחוק): הבורר רשאי לנהל את הבוררות בדרך הנראית לו מועילה להכרעה מהירה, לרבות קבלת ראיות והזמנת עדים, ואינו כפוף לסדרי הדין וכללי הראיות הנהוגים בבתי המשפט (סעיף 15), אלא אם הוסכם אחרת.",
+        "ביטול פסק בוררות: סעיף 24 לחוק הבוררות קובע רשימה סגורה של 10 עילות ביטול — למשל, לא היה הסכם בוררות בר-תוקף, הפסק ניתן בלא סמכות, לא ניתנה לבעל דין הזדמנות נאותה לטעון טענותיו או להביא ראיותיו, הבורר לא הכריע באחד העניינים שנמסרו להכרעתו, ותוכן הפסק מנוגד לתקנת הציבור.",
+        "אחריות ושכר הבורר (פרק ו׳): הבורר אחראי כלפי בעלי הדין הנוהג בעל-דין רגיל (סעיף 30); שכר הבורר משולם על ידי בעלי הדין בחלקים שווים, אלא אם נקבע אחרת (סעיף 31).",
+        "גישור הוא הליך מבוסס הסכמות שבו מגשר ניטרלי מסייע לצדדים להגיע להסכמה, ללא סמכות הכרעה; ההסכמה איננה מחייבת עד לחתימה עליה. תקנות בתי המשפט (גישור), התשנ״ג-1993 מסדירות את הפניית תיקים לגישור, את סמכות המגשר לנהל את הליך הגישור באופן הנראה לו מתאים, ואת חובת הסודיות של המגשר וחובות הגילוי בדבר ניגוד עניינים.",
+        "תקנות בתי המשפט (רשימת מגשרים), התשע״ח-2017 קובעות את תנאי הכשירות להיכלל ברשימת המגשרים שבניהול בתי המשפט (השכלה, הכשרה כללית ומתקדמת בגישור, ותק וניסיון), ואת סמכויות ועדת מייעצת לשר המשפטים לעניין הכשרות והכללה ברשימה.",
         "סעיפים 79א-79ב לחוק בתי המשפט מסמיכים בית משפט להעביר סכסוך לבוררות או לדרך יישוב סכסוכים אחרת בהסכמת הצדדים.",
-        "פגישת מהו״ת (מידע, היכרות ותיאום) — פגישת חובה טרם הגשת תביעות מסוימות, שנועדה לבחון אפשרות ליישוב מחוץ לכותלי בית המשפט."
+        "פגישת מהו״ת (מידע, היכרות ותיאום) — לפי פרק ד׳ לתקנות סדר הדין האזרחי, התשמ״ד-1984 — פגישת חובה טרם הגשת תביעות מסוימות, שנועדה לבחון אפשרות ליישוב מחוץ לכותלי בית המשפט."
       ],
       sub:"נקודות מפתח לזכירה",
       points:[
-        "עילות לביטול פסק בורר: חריגה מסמכות, אי מתן הזדמנות נאותה לטעון, הפרת כללי צדק טבעי — רשימה סגורה וצרה.",
-        "ההבדל המרכזי: בבוררות יש הכרעה מחייבת (כמו פסק דין); בגישור אין הכרעה — רק הסכמה רצונית.",
+        "עילות לביטול פסק בורר (סעיף 24 לחוק הבוררות) הן רשימה סגורה של 10 עילות: היעדר הסכם בוררות בר-תוקף, פסק בלא סמכות, אי מתן הזדמנות נאותה לטעון, אי הכרעה בעניין שנמסר לבורר, הבורר פעל בלא סמכות שניתנה לו, הפרת כללי צדק טבעי, ותוכן הפסק מנוגד לתקנת הציבור — ועוד.",
+        "הבורר, בשונה משופט, אינו כפוף לסדרי הדין וכללי הראיות הרגילים (סעיף 15 לחוק הבוררות) — אלא אם הצדדים הסכימו על כך במפורש.",
+        "ההבדל המרכזי: בבוררות יש הכרעה מחייבת (כמו פסק דין) לפי חוק הבוררות; בגישור אין הכרעה — רק הסכמה רצונית לפי תקנות הגישור.",
+        "רשימת המגשרים המוסמכים מנוהלת על ידי בתי המשפט בהתאם לתנאי כשירות ולהכשרה שנקבעו בתקנות רשימת המגשרים, תשע״ח-2017.",
         "פגישת מהו״ת נועדה לעודד יישוב מוקדם ולחסוך זמן שיפוטי, ובמקרים מסוימים היא תנאי דיוני להגשת תביעה."
       ],
       mcq:[
         {q:"מה מקנה בורר מוסמך לצדדים בסיום הליך בוררות?",
          o:["המלצה בלבד","הכרעה מחייבת בדומה לפסק דין","הצעת פשרה שאינה מחייבת","דחיית התביעה אוטומטית"],
-         c:1, e:"בוררות מסתיימת בפסק בורר מחייב, הניתן לאישור בית המשפט וברור רק בעילות ביטול מצומצמות שבחוק הבוררות."},
+         c:1, e:"בוררות מסתיימת בפסק בורר מחייב, הניתן לאישור בית המשפט וברור רק בעילות ביטול מצומצמות שבסעיף 24 לחוק הבוררות."},
         {q:"מהי פגישת מהו״ת?",
          o:["פגישת גישור חובה טרם הגשת תביעות מסוימות","ישיבת הוכחות ראשונה","פגישה בין עורכי הדין בלבד ללא הצדדים","הליך ערעור מזורז"],
-         c:0, e:"פגישת מהו״ת (מידע, היכרות ותיאום) היא פגישת חובה טרם הגשת תביעות מסוימות, שמטרתה לבחון אפשרות ליישוב הסכסוך מחוץ לכותלי בית המשפט."},
-        {q:"מהי אחת העילות המוכרות לביטול פסק בורר?",
-         o:["חוסר שביעות רצון מהתוצאה","חריגת הבורר מסמכותו","טעות חישובית פעוטה שאינה משנה תוצאה","הבורר גבה שכר טרחה"],
-         c:1, e:"עילות הביטול בחוק הבוררות מצומצמות וכוללות בין היתר חריגה מסמכות, אי מתן הזדמנות נאותה לטעון והפרת כללי צדק טבעי."}
+         c:0, e:"פגישת מהו״ת (מידע, היכרות ותיאום), לפי פרק ד׳ לתקנות סדר הדין האזרחי, היא פגישת חובה טרם הגשת תביעות מסוימות, שמטרתה לבחון אפשרות ליישוב הסכסוך מחוץ לכותלי בית המשפט."},
+        {q:"כמה עילות ביטול לפסק בוררות קובע סעיף 24 לחוק הבוררות?",
+         o:["3 עילות פתוחות","10 עילות ברשימה סגורה","אין רשימה — שיקול דעת רחב לבית המשפט","עילה אחת בלבד: אי-שביעות רצון מהתוצאה"],
+         c:1, e:"סעיף 24 לחוק הבוררות קובע רשימה סגורה של 10 עילות ביטול, ביניהן היעדר הסכם בוררות בר-תוקף, חריגה מסמכות, אי מתן הזדמנות נאותה לטעון והפרת כללי צדק טבעי."},
+        {q:"מה קורה כאשר הצדדים לא קבעו בהסכם הבוררות דרך למינוי בורר ולא הגיעו להסכמה על כך?",
+         o:["הבוררות מתבטלת אוטומטית","בית המשפט רשאי למנות בורר לפי בקשת בעל דין","הצד התובע ממנה בורר מטעמו בלבד","המדינה ממנה בורר קבוע לכל המקרים"],
+         c:1, e:"לפי סעיפים 8–9 לחוק הבוררות, כאשר אין דרך מוסכמת למינוי בורר, בית המשפט רשאי, לבקשת בעל דין, למנות בורר."},
+        {q:"האם הבורר כפוף לסדרי הדין וכללי הראיות הנהוגים בבית משפט?",
+         o:["כן, תמיד ובאופן מלא","לא, אלא אם הצדדים הסכימו אחרת","רק בבוררויות כספיות","רק כאשר אחד הצדדים הוא תאגיד"],
+         c:1, e:"סעיף 15 לחוק הבוררות קובע שהבורר רשאי לנהוג בדרך הנראית לו מועילה להכרעה מהירה ואינו כפוף לסדרי הדין וכללי הראיות הרגילים, אלא אם הוסכם אחרת בין הצדדים."},
+        {q:"מה בוחנות תקנות בתי המשפט (רשימת מגשרים), התשע״ח-2017?",
+         o:["את שכר הטרחה המרבי של עורכי דין","את תנאי הכשירות וההכשרה הנדרשים להיכלל ברשימת המגשרים של בתי המשפט","את סדרי הדין בערעור פלילי","את אופן גביית מסים ממגשרים"],
+         c:1, e:"תקנות רשימת המגשרים קובעות את תנאי הכשירות (השכלה, הכשרה כללית ומתקדמת בגישור, ותק) הנדרשים להיכלל ברשימת המגשרים שבניהול בתי המשפט, ואת סמכויות הוועדה המייעצת בנושא."}
       ]
     },
     {
@@ -986,16 +1129,19 @@
   sections.forEach(function(s){ io.observe(s); });
 
   var funFacts = [
-    "אוחז כשורה בשטר יכול לזכות בזכות מלאה גם אם הצד שהעביר לו את השטר קיבל אותו שלא כדין — זהו אחד העקרונות העתיקים ביותר בדיני מסחר, שנועד לעודד סחירות שטרות ככסף.",
-    "פגישת מהו״ת (מידע, היכרות ותיאום) יכולה להיות תנאי דיוני שבלעדיו התביעה לא תתקבל להגשה בבתי משפט מסוימים — המחוקק מעדיף שתיישבו את הסכסוך לפני שתגיעו לאולם בית המשפט.",
-    "בביטוח, אם המבוטח שיקר במרמה בשאלון הביטוח, המבטח לא רק פטור מתשלום — הוא אף רשאי לבטל את הפוליסה כאילו לא הייתה קיימת מעולם.",
-    "עקרון השוויון במכרזים כה נוקשה, שגם אם ההצעה הזוכה הייתה הכי משתלמת כלכלית, פגם הליכי (כמו העדפה נסתרת) עלול לבטל את הזכייה כולה.",
-    "חוק צמצום השימוש במזומן חל גם על עסקאות בין אנשים פרטיים שאינם עוסקים — לא רק על עסקים, אלא גם למשל ברכישת רכב יד שנייה.",
-    "מבקר פנימי בארגון אינו כפוף מקצועית למנכ״ל, אלא לוועדת הביקורת או לדירקטוריון — בדיוק כדי שיוכל, תיאורטית, לבקר גם את המנכ״ל עצמו.",
-    "חובת 'הכר את הלקוח' בחוק איסור הלבנת הון חלה גם על עורכי דין ורואי חשבון במקרים מסוימים — לא רק על בנקים וחברות כרטיסי אשראי.",
-    "זכות במקרקעין נחשבת מושלמת רק עם רישום בטאבו — מי שחתם על חוזה רכישת דירה אך טרם נרשם, מחזיק (לעת עתה) רק בזכות חוזית ולא בזכות קניינית מלאה.",
-    "בחוזה אחיד, אין צורך שהלקוח בפועל ידע או יבין את התנאי המקפח — מספיק שהתנאי יוצר יתרון בלתי הוגן לספק כדי שיהיה ניתן לתקוף אותו.",
-    "ריבית והצמדה יכולות לחול יחד על אותו חוב בו-זמנית: ההצמדה שומרת על ערך הקרן, והריבית היא תוספת נפרדת בעבור השימוש בכסף."
+    {topicIndex:0, text:"פסקת ההגבלה מחייבת שכל פגיעה בזכות יסוד תיעשה 'בחוק' או 'לפי חוק מכוח הסמכה מפורשת בו' — כלומר אפילו תקנה או נוהל מנהלי חייבים עוגן מפורש בחקיקה ראשית כדי לפגוע בזכות יסוד."},
+    {topicIndex:1, text:"עד לרישום בפנקס המקרקעין, גם אם שילמתם את מלוא מחיר הדירה וקיבלתם את המפתחות — יש לכם רק זכות חוזית, לא זכות קניינית מלאה."},
+    {topicIndex:2, text:"אכיפה היא הסעד ה'ברירת מחדל' בהפרת חוזה — בניגוד לתפיסה הרווחת שפיצויים הם הפתרון המיידי, בית המשפט יעדיף לכפות קיום החוזה כשהדבר אפשרי וצודק."},
+    {topicIndex:3, text:"מבטח שגילה כי המבוטח שיקר במרמה בשאלון הביטוח לא רק פטור מתשלום — הוא רשאי לבטל את הפוליסה כאילו לא הייתה קיימת מעולם."},
+    {topicIndex:4, text:"מחשבה פלילית דורשת מודעות בפועל של הנאשם למעשה ולנסיבותיו; רשלנות, לעומת זאת, נמדדת באופן אובייקטיבי — לפי מה שאדם סביר היה עושה, בלי קשר למה שהנאשם בפועל חשב."},
+    {topicIndex:5, text:"פגישת מהו״ת (מידע, היכרות ותיאום) יכולה להיות תנאי דיוני שבלעדיו תביעות מסוימות כלל לא יתקבלו להגשה — המחוקק מעדיף שתיישבו את הסכסוך לפני שתגיעו לאולם בית המשפט."},
+    {topicIndex:6, text:"אוחז כשורה בשטר יכול לזכות בזכות מלאה גם אם מי שהעביר לו את השטר קיבל אותו שלא כדין — עיקרון עתיק בדיני מסחר שנועד לעודד סחירות שטרות ככסף."},
+    {topicIndex:7, text:"ריבית והצמדה יכולות לחול יחד על אותו חוב בו-זמנית: ההצמדה שומרת על ערך הקרן הריאלי, והריבית היא תוספת נפרדת בעבור עצם השימוש בכסף."},
+    {topicIndex:8, text:"מבקר פנימי בארגון אינו כפוף מקצועית למנכ״ל, אלא לוועדת הביקורת או לדירקטוריון — בדיוק כדי שיוכל, תיאורטית, לבקר גם את המנכ״ל עצמו."},
+    {topicIndex:9, text:"עקרון השוויון במכרזים כה נוקשה, שגם אם ההצעה הזוכה הייתה המשתלמת ביותר כלכלית, פגם הליכי (כמו שינוי תנאי סף באמצע הדרך) עלול לבטל את הזכייה כולה."},
+    {topicIndex:10, text:"תקרת הריבית באשראי חוץ-בנקאי אינה קבועה — היא נגזרת מריבית בנק ישראל בתוספת שיעור מרבי הקבוע בחוק, כך שהיא זזה יחד עם המשק."},
+    {topicIndex:11, text:"חובת 'הכר את הלקוח' בחוק איסור הלבנת הון חלה גם על עורכי דין ורואי חשבון במקרים מסוימים — לא רק על בנקים וחברות כרטיסי אשראי."},
+    {topicIndex:12, text:"חובות ההגינות המוגברות של בנק כלפי לקוחותיו אינן כתובות רק בחוזה שחתמתם עליו — הן קבועות בחוק ובכללים נפרדים, ולכן חלות גם כשהחוזה עצמו שותק."}
   ];
 
   var overlay = document.getElementById('modalOverlay');
@@ -1008,10 +1154,20 @@
   overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !overlay.hidden) closeModal(); });
 
-  function showSurprise(){
+  var OPENED_KEY = 'biz-law-boxes-v1';
+  var opened = loadJSON(OPENED_KEY, {});
+
+  function questionsForTopic(topicIndex){
+    return allQuestions.filter(function(q){ return q.topicIndex === topicIndex; });
+  }
+
+  function renderSurpriseContent(topicIndex){
+    var t = topics[topicIndex];
+    var pool = questionsForTopic(topicIndex);
     var roll = Math.random();
-    if(roll < 0.5 && allQuestions.length){
-      var pick = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+
+    if(roll < 0.6 && pool.length){
+      var pick = pool[Math.floor(Math.random() * pool.length)];
       var letters = ['א','ב','ג','ד'];
       var optsHtml = pick.m.o.map(function(opt, oi){
         return '<button type="button" class="quiz-opt" data-oi="' + oi + '"><span class="letter">' + letters[oi] + '</span><span>' + opt + '</span></button>';
@@ -1022,7 +1178,7 @@
         '<div class="quiz-q">' + pick.m.q + '</div>' +
         '<div class="quiz-opts">' + optsHtml + '</div>' +
         '<div class="quiz-explain" id="surpriseExplain">הסבר: ' + pick.m.e + '</div>' +
-        '<button class="modal-again" id="surpriseAgain" type="button">עוד הפתעה 🎲</button>';
+        '<button class="modal-again" id="surpriseAgain" type="button">עוד הפתעה מהקופסה 🎲</button>';
 
       modalContent.querySelectorAll('.quiz-opt').forEach(function(btn){
         btn.addEventListener('click', function(){
@@ -1036,20 +1192,54 @@
         });
       });
     } else {
-      var fact = funFacts[Math.floor(Math.random() * funFacts.length)];
+      var factsForTopic = funFacts.filter(function(f){ return f.topicIndex === topicIndex; });
+      var fact = factsForTopic.length
+        ? factsForTopic[Math.floor(Math.random() * factsForTopic.length)]
+        : funFacts[Math.floor(Math.random() * funFacts.length)];
       modalContent.innerHTML =
-        '<div class="modal-eyebrow">🎁 עובדה מפתיעה</div>' +
+        '<div class="modal-eyebrow">🎁 עובדה מפתיעה &middot; ' + t.tag + '</div>' +
         '<h3>ידעת?</h3>' +
-        '<div class="surprise-fact">' + fact + '</div>' +
-        '<button class="modal-again" id="surpriseAgain" type="button">עוד הפתעה 🎲</button>';
+        '<div class="surprise-fact">' + fact.text + '</div>' +
+        '<button class="modal-again" id="surpriseAgain" type="button">עוד הפתעה מהקופסה 🎲</button>';
     }
 
     var again = document.getElementById('surpriseAgain');
-    if(again) again.addEventListener('click', showSurprise);
+    if(again) again.addEventListener('click', function(){ renderSurpriseContent(topicIndex); });
+  }
+
+  function openBox(topicIndex, boxEl){
+    if(!boxEl.classList.contains('opened')){
+      boxEl.classList.add('opened');
+      opened[topicIndex] = true;
+      saveJSON(OPENED_KEY, opened);
+    }
+    renderSurpriseContent(topicIndex);
     openModal();
   }
 
-  document.getElementById('surpriseTop').addEventListener('click', showSurprise);
-  document.getElementById('surpriseFab').addEventListener('click', showSurprise);
+  var giftGrid = document.getElementById('giftGrid');
+  topics.forEach(function(t, i){
+    var color = palette[i % palette.length];
+    var box = document.createElement('button');
+    box.type = 'button';
+    box.className = 'gift-box';
+    box.style.setProperty('--box-color', color);
+    if(opened[i]) box.classList.add('opened');
+    box.innerHTML =
+      '<span class="box-num">' + t.tag + '</span>' +
+      '<span class="box-art">' +
+        '<span class="box-check">✓</span>' +
+        '<span class="box-lid"></span>' +
+        '<span class="box-glow"></span>' +
+        '<span class="box-body"></span>' +
+      '</span>' +
+      '<span class="box-label">' + t.title + '</span>';
+    box.addEventListener('click', function(){ openBox(i, box); });
+    giftGrid.appendChild(box);
+  });
+
+  document.getElementById('surpriseTop').addEventListener('click', function(){
+    document.getElementById('surpriseBank').scrollIntoView({behavior:'smooth', block:'start'});
+  });
 })();
 </script>
