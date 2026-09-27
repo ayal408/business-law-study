@@ -200,7 +200,11 @@
     scroll-margin-top:16px;
     box-shadow:var(--shadow);
     border-top:4px solid var(--topic-color, var(--gold));
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .55s ease, transform .55s ease;
   }
+  .topic.revealed{opacity:1;transform:translateY(0);}
   .topic-head{
     display:flex;
     justify-content:space-between;
@@ -302,6 +306,16 @@
   .diagram-wrap .dt{fill:var(--ink);font-size:12.5px;font-family:"Segoe UI",Assistant,sans-serif;}
   .diagram-wrap .dt-sm{fill:var(--ink-dim);font-size:10.5px;font-family:"Segoe UI",Assistant,sans-serif;}
   .diagram-wrap .darrow{stroke:var(--ink-dim);stroke-width:1.6;fill:none;marker-end:url(#dArrow);}
+  .diagram-wrap .dflow{animation:dflow-move 2.4s linear infinite;}
+  @keyframes dflow-move{to{stroke-dashoffset:-28;}}
+  .diagram-wrap circle{animation:dpulse 2.4s ease-in-out infinite;}
+  @keyframes dpulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+  .diagram-wrap .db, .diagram-wrap .db-accent{
+    animation:dbox-in .5s ease both;
+    transform-box:fill-box;
+    transform-origin:center;
+  }
+  @keyframes dbox-in{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
 
   .laws{
     display:flex;flex-wrap:wrap;gap:6px;
@@ -367,10 +381,12 @@
     display:flex;align-items:center;justify-content:center;
     font-size:11.5px;font-weight:800;color:var(--ink-dim);
   }
-  .quiz-opt.correct{border-color:var(--done);background:color-mix(in srgb, var(--done) 14%, var(--surface));}
+  .quiz-opt.correct{border-color:var(--done);background:color-mix(in srgb, var(--done) 14%, var(--surface));animation:opt-pop .35s ease;}
   .quiz-opt.correct .letter{background:var(--done);border-color:var(--done);color:#fff;}
-  .quiz-opt.wrong{border-color:var(--wrong);background:color-mix(in srgb, var(--wrong) 12%, var(--surface));}
+  .quiz-opt.wrong{border-color:var(--wrong);background:color-mix(in srgb, var(--wrong) 12%, var(--surface));animation:opt-shake .35s ease;}
   .quiz-opt.wrong .letter{background:var(--wrong);border-color:var(--wrong);color:#fff;}
+  @keyframes opt-pop{0%{transform:scale(1);}45%{transform:scale(1.02);}100%{transform:scale(1);}}
+  @keyframes opt-shake{0%,100%{transform:translateX(0);}25%{transform:translateX(4px);}75%{transform:translateX(-4px);}}
   .quiz-opt[disabled]{cursor:default;}
   .quiz-explain{
     margin-top:10px;
@@ -728,8 +744,8 @@
   .tf-btns button.true-btn:hover{border-color:var(--done);}
   .tf-btns button.false-btn:hover{border-color:var(--wrong);}
   .tf-btns button[disabled]{cursor:default;}
-  .tf-btns button.correct{background:color-mix(in srgb, var(--done) 20%, var(--surface-2));border-color:var(--done);}
-  .tf-btns button.wrong{background:color-mix(in srgb, var(--wrong) 20%, var(--surface-2));border-color:var(--wrong);}
+  .tf-btns button.correct{background:color-mix(in srgb, var(--done) 20%, var(--surface-2));border-color:var(--done);animation:opt-pop .35s ease;}
+  .tf-btns button.wrong{background:color-mix(in srgb, var(--wrong) 20%, var(--surface-2));border-color:var(--wrong);animation:opt-shake .35s ease;}
   .tf-explain{
     margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);
     font-size:14px;line-height:1.6;color:var(--ink-dim);display:none;
@@ -1072,6 +1088,25 @@
       tag:"נושא 2",
       title:"דיני קניין: מקרקעין ומיטלטלין",
       laws:["חוק המקרקעין","חוק המיטלטלין","חוק המכר","חוק המכר (דירות)","חוק המכר (דירות)(הבטחת השקעות)","חוק המשכון","פקודת החברות"],
+      diagram:{
+        caption:"מזכות חוזית לזכות קניינית — ציר הזמן של עסקה במקרקעין",
+        svg:'<svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ציר זמן עסקה במקרקעין">' +
+          '<defs><marker id="dArrowL2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-dim)"/></marker>' +
+          '<path id="dashPathL2" d="M110,40 H530" fill="none"/></defs>' +
+          '<line x1="60" y1="40" x2="580" y2="40" stroke="var(--line)" stroke-width="2"/>' +
+          '<path class="dflow" d="M110,40 H530" stroke="var(--topic-color, var(--gold))" stroke-width="2" fill="none" stroke-dasharray="8 6"/>' +
+          '<circle cx="110" cy="40" r="7" fill="var(--topic-color, var(--gold))"/>' +
+          '<circle cx="530" cy="40" r="7" fill="var(--topic-color, var(--gold))"/>' +
+          '<text class="dt" x="110" y="78" text-anchor="middle">חתימת חוזה מכר</text>' +
+          '<text class="dt-sm" x="110" y="96" text-anchor="middle">זכות חוזית (אובליגטורית) בלבד</text>' +
+          '<text class="dt" x="530" y="78" text-anchor="middle">רישום בפנקס המקרקעין</text>' +
+          '<text class="dt-sm" x="530" y="96" text-anchor="middle">זכות קניינית מלאה (ס׳ 7)</text>' +
+          '<rect class="db" x="40" y="120" width="560" height="70" rx="10"/>' +
+          '<text class="dt" x="320" y="145" text-anchor="middle">עסקאות נוגדות (ס׳ 9): שני קונים לאותו נכס</text>' +
+          '<text class="dt-sm" x="320" y="166" text-anchor="middle">עדיפות לראשון בזמן ובתום לב — אלא אם השני נרשם בתום לב ובתמורה</text>' +
+          '<text class="dt-sm" x="320" y="182" text-anchor="middle">ואז דווקא הוא זוכה בזכות העדיפה</text>' +
+          '</svg>'
+      },
       original:[
         {ref:"חוק המקרקעין, תשכ״ט-1969 — סעיף 1 (הגדרה)",
          text:"'מקרקעין' — קרקע, כל הבנוי והנטוע עליה וכל דבר אחר המחובר אליה חיבור של קבע, זולת מחוברים הניתנים להפרדה."},
@@ -1527,6 +1562,21 @@
       tag:"נושא 12",
       title:"איסור הלבנת הון",
       laws:["חוק איסור הלבנת הון, התש״ס-2000"],
+      diagram:{
+        caption:"מסלול ה-KYC: מהלקוח ועד דיווח לרשות (במקרה חריג)",
+        svg:'<svg viewBox="0 0 640 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="תהליך הכר את הלקוח ודיווח">' +
+          '<defs><marker id="dArrowL12" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--ink-dim)"/></marker></defs>' +
+          '<rect class="db" x="10" y="34" width="120" height="42" rx="10"/><text class="dt" x="70" y="60" text-anchor="middle">לקוח</text>' +
+          '<line class="darrow" x1="130" y1="55" x2="168" y2="55" marker-end="url(#dArrowL12)"/>' +
+          '<rect class="db-accent" x="172" y="34" width="130" height="42" rx="10"/><text class="dt" x="237" y="60" text-anchor="middle">זיהוי (KYC)</text>' +
+          '<line class="darrow" x1="302" y1="55" x2="340" y2="55" marker-end="url(#dArrowL12)"/>' +
+          '<rect class="db" x="344" y="34" width="150" height="42" rx="10"/><text class="dt" x="419" y="60" text-anchor="middle">ניטור פעילות שוטף</text>' +
+          '<line class="darrow" x1="494" y1="55" x2="530" y2="55" marker-end="url(#dArrowL12)"/>' +
+          '<rect class="db" x="534" y="16" width="96" height="34" rx="9"/><text class="dt-sm" x="582" y="38" text-anchor="middle">תקין</text>' +
+          '<line class="darrow" x1="494" y1="55" x2="530" y2="95" marker-end="url(#dArrowL12)"/>' +
+          '<rect class="db-accent" x="500" y="80" width="130" height="36" rx="9"/><text class="dt-sm" x="565" y="103" text-anchor="middle">פעולה חריגה → דיווח לרשות</text>' +
+          '</svg>'
+      },
       original:[
         {ref:"חוק איסור הלבנת הון, התש״ס-2000 — סעיף 3(א) (איסור העיקרי)",
          text:"העושה פעולה ברכוש, שהוא רכוש כאמור בפסקאות (1) עד (4) (בחוק זה — רכוש אסור), במטרה להסתיר או להסוות את מקורו, את זהות בעלי הזכויות בו, את מיקומו, את תנועותיו או עשיית פעולה בו, דינו — מאסר עשר שנים או קנס פי עשרים מהקנס האמור בסעיף 61(א)(4) לחוק העונשין."}
@@ -1862,6 +1912,22 @@
     });
   }, {rootMargin:'-20% 0px -70% 0px'});
   sections.forEach(function(s){ io.observe(s); });
+
+  var revealIo = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        revealIo.unobserve(e.target);
+      }
+    });
+  }, {rootMargin:'0px 0px -10% 0px', threshold:0.05}) : null;
+
+  if(revealIo){
+    sections.forEach(function(s){ revealIo.observe(s); });
+  } else {
+    sections.forEach(function(s){ s.classList.add('revealed'); });
+  }
+  if(sections[0]) sections[0].classList.add('revealed');
 
   var funFacts = [
     {topicIndex:0, text:"פסקת ההגבלה מחייבת שכל פגיעה בזכות יסוד תיעשה 'בחוק' או 'לפי חוק מכוח הסמכה מפורשת בו' — כלומר אפילו תקנה או נוהל מנהלי חייבים עוגן מפורש בחקיקה ראשית כדי לפגוע בזכות יסוד."},
