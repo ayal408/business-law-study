@@ -830,7 +830,7 @@
       <span id="progressLabel">0 / 13 נושאים סומנו כנלמדו</span>
     </div>
     <div class="score-pill">חידונים: <b id="quizScore">0</b> / <span id="quizTotal">0</span> תשובות נכונות</div>
-    <a class="surprise-btn" href="original-texts.pdf" target="_blank" rel="noopener" style="text-decoration:none;"><span class="emoji">📄</span> הורדת נוסח החוק (PDF)</a>
+    <a class="surprise-btn" href="original-texts.pdf" target="_blank" rel="noopener" style="text-decoration:none;"><span class="emoji">📄</span> הורדת כל הנוסחים (PDF אחד)</a>
     <button class="surprise-btn" id="surpriseTop" type="button"><span class="emoji">🎁</span> אל מאגר ההפתעות</button>
   </div>
 </header>
@@ -1630,10 +1630,11 @@
       var otItems = t.original.map(function(o){
         return '<div class="ot-item"><div class="ot-ref">' + o.ref + '</div><div class="ot-quote">' + o.text + '</div></div>';
       }).join('');
+      var pdfSlug = (i === 0) ? 'lesson0' : ('topic' + i);
       originalHtml =
         '<div class="original-text">' +
           '<div class="ot-head-row"><span class="ot-head">📜 נוסח מקורי מהחוק</span>' +
-          '<a class="ot-pdf-link" href="original-texts.pdf" target="_blank" rel="noopener">⬇ PDF</a></div>' +
+          '<a class="ot-pdf-link" href="laws/' + pdfSlug + '.pdf" target="_blank" rel="noopener">⬇ PDF של הנושא הזה</a></div>' +
           otItems +
         '</div>';
     }
