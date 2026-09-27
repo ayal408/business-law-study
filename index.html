@@ -2,54 +2,71 @@
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f6f3ec;
+    --bg:#f5f1e6;
     --surface:#ffffff;
-    --surface-2:#efe9dc;
+    --surface-2:#efe7d4;
+    --surface-3:#e7dcc0;
     --ink:#241f18;
-    --ink-dim:#5c5648;
-    --line:#ddd4bf;
-    --accent:#7a2e2e;
+    --ink-dim:#645c48;
+    --line:#ddd0ad;
+    --accent:#8a2f2f;
+    --accent-2:#1f5c52;
     --accent-ink:#ffffff;
-    --gold:#a1782f;
+    --gold:#b1791f;
+    --gold-soft:#f1e2bd;
     --done:#3f6b4c;
+    --wrong:#b23a3a;
+    --shadow: 0 10px 30px -14px rgba(60,40,10,.28);
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#1a1712;
-      --surface:#241f18;
-      --surface-2:#2c2620;
-      --ink:#efe8d8;
-      --ink-dim:#b5ab93;
-      --line:#3d362a;
-      --accent:#e08a8a;
-      --accent-ink:#241110;
-      --gold:#d9ab5c;
+      --bg:#171310;
+      --surface:#231d17;
+      --surface-2:#2c241b;
+      --surface-3:#362c1f;
+      --ink:#f1e8d6;
+      --ink-dim:#c1b393;
+      --line:#453a29;
+      --accent:#e8918f;
+      --accent-2:#7fc6b6;
+      --accent-ink:#201010;
+      --gold:#e0b25b;
+      --gold-soft:#3a2f1c;
       --done:#7fc79a;
+      --wrong:#e78a8a;
+      --shadow: 0 10px 30px -14px rgba(0,0,0,.6);
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#1a1712;
-    --surface:#241f18;
-    --surface-2:#2c2620;
-    --ink:#efe8d8;
-    --ink-dim:#b5ab93;
-    --line:#3d362a;
-    --accent:#e08a8a;
-    --accent-ink:#241110;
-    --gold:#d9ab5c;
+    --bg:#171310;
+    --surface:#231d17;
+    --surface-2:#2c241b;
+    --surface-3:#362c1f;
+    --ink:#f1e8d6;
+    --ink-dim:#c1b393;
+    --line:#453a29;
+    --accent:#e8918f;
+    --accent-2:#7fc6b6;
+    --accent-ink:#201010;
+    --gold:#e0b25b;
+    --gold-soft:#3a2f1c;
     --done:#7fc79a;
+    --wrong:#e78a8a;
+    --shadow: 0 10px 30px -14px rgba(0,0,0,.6);
     color-scheme: dark;
   }
 
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:var(--bg);
+    background:
+      radial-gradient(ellipse at top left, color-mix(in srgb, var(--gold) 10%, transparent), transparent 55%),
+      var(--bg);
     color:var(--ink);
     font-family:'Assistant',system-ui,sans-serif;
     direction:rtl;
@@ -61,47 +78,54 @@
     margin:0;
   }
   a{color:var(--accent);}
+  button{font-family:inherit;}
 
   .shell{
-    max-width:1180px;
+    max-width:1200px;
     margin:0 auto;
     display:grid;
-    grid-template-columns:260px 1fr;
+    grid-template-columns:270px 1fr;
     gap:28px;
-    padding-block:24px 60px;
+    padding-block:24px 80px;
   }
   @media (max-width:860px){
     .shell{grid-template-columns:1fr;}
   }
 
   header.top{
-    max-width:1180px;
+    max-width:1200px;
     margin:0 auto;
-    padding-block:28px 8px;
+    padding-block:30px 14px;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
     border-bottom:1px solid var(--line);
   }
   .eyebrow{
     font-size:13px;
     letter-spacing:.08em;
     color:var(--gold);
-    font-weight:700;
+    font-weight:800;
   }
-  header.top h1{font-size:clamp(28px,4vw,42px);}
-  header.top p{color:var(--ink-dim);margin:0;max-width:65ch;line-height:1.6;}
+  header.top h1{font-size:clamp(30px,4.4vw,46px);}
+  header.top p{color:var(--ink-dim);margin:0;max-width:68ch;line-height:1.65;}
 
+  .stats-row{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:20px;
+    margin-top:4px;
+  }
   .progress-wrap{
     display:flex;
     align-items:center;
     gap:12px;
-    margin-top:6px;
   }
   .progress-track{
-    flex:1;
-    max-width:340px;
-    height:10px;
+    width:220px;
+    max-width:50vw;
+    height:11px;
     border-radius:6px;
     background:var(--surface-2);
     overflow:hidden;
@@ -111,9 +135,40 @@
     height:100%;
     background:linear-gradient(90deg,var(--gold),var(--accent));
     width:0%;
-    transition:width .3s ease;
+    transition:width .35s ease;
   }
-  #progressLabel{font-size:14px;color:var(--ink-dim);font-variant-numeric:tabular-nums;}
+  #progressLabel{font-size:14px;color:var(--ink-dim);font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+  .score-pill{
+    display:flex;align-items:center;gap:8px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:7px 16px;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink-dim);
+    font-variant-numeric:tabular-nums;
+  }
+  .score-pill b{color:var(--accent-2);font-size:15px;}
+
+  .surprise-btn{
+    margin-inline-start:auto;
+    display:flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,var(--gold),var(--accent));
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:10px 20px;
+    font-size:14.5px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:transform .15s ease;
+  }
+  .surprise-btn:hover{transform:translateY(-2px) scale(1.02);}
+  .surprise-btn:active{transform:translateY(0) scale(.98);}
+  .surprise-btn .emoji{font-size:18px;}
 
   nav.toc{
     position:sticky;
@@ -129,50 +184,54 @@
   nav.toc a{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
     text-decoration:none;
     color:var(--ink-dim);
     font-size:14px;
-    padding:7px 10px;
-    border-radius:8px;
+    padding:8px 10px;
+    border-radius:10px;
     line-height:1.35;
+    border:1px solid transparent;
   }
   nav.toc a:hover{background:var(--surface-2);color:var(--ink);}
-  nav.toc a.active{background:var(--surface-2);color:var(--ink);font-weight:700;}
+  nav.toc a.active{background:var(--surface-2);color:var(--ink);font-weight:700;border-color:var(--line);}
   nav.toc .num{
     flex:0 0 auto;
-    width:22px;height:22px;
+    width:24px;height:24px;
     border-radius:50%;
     border:1px solid var(--line);
     display:flex;align-items:center;justify-content:center;
-    font-size:11px;font-weight:700;color:var(--ink-dim);
+    font-size:11px;font-weight:800;color:var(--ink-dim);
     font-variant-numeric:tabular-nums;
+    background:var(--surface);
   }
-  nav.toc a.check .num{background:var(--done);border-color:var(--done);color:var(--accent-ink);}
+  nav.toc a.check .num{background:var(--done);border-color:var(--done);color:#fff;}
 
-  main{display:flex;flex-direction:column;gap:22px;min-width:0;}
+  main{display:flex;flex-direction:column;gap:24px;min-width:0;}
 
   .topic{
     background:var(--surface);
     border:1px solid var(--line);
-    border-radius:16px;
-    padding:22px 24px;
+    border-radius:18px;
+    padding:24px 26px;
     scroll-margin-top:16px;
+    box-shadow:var(--shadow);
+    border-top:4px solid var(--topic-color, var(--gold));
   }
   .topic-head{
     display:flex;
     justify-content:space-between;
     align-items:flex-start;
     gap:16px;
-    margin-bottom:6px;
+    margin-bottom:8px;
   }
-  .topic-head h2{font-size:22px;}
+  .topic-head h2{font-size:23px;}
   .topic-tag{
     font-size:12px;
-    color:var(--gold);
-    font-weight:700;
-    letter-spacing:.04em;
-    margin-bottom:2px;
+    color:var(--topic-color, var(--gold));
+    font-weight:800;
+    letter-spacing:.05em;
+    margin-bottom:3px;
     display:block;
   }
   .mark-btn{
@@ -182,77 +241,194 @@
     border:1px solid var(--line);
     color:var(--ink-dim);
     border-radius:999px;
-    padding:6px 14px;
+    padding:7px 15px;
     font-size:13px;
-    font-family:inherit;
-    font-weight:600;
+    font-weight:700;
     cursor:pointer;
     transition:background .15s,color .15s,border-color .15s;
   }
   .mark-btn.on{
     background:var(--done);
     border-color:var(--done);
-    color:var(--accent-ink);
+    color:#fff;
   }
 
   .laws{
     display:flex;flex-wrap:wrap;gap:6px;
-    margin:10px 0 14px;
+    margin:12px 0 16px;
   }
   .laws span{
     background:var(--surface-2);
     border:1px solid var(--line);
     border-radius:7px;
-    padding:4px 10px;
+    padding:4px 11px;
     font-size:12.5px;
     color:var(--ink-dim);
+    font-weight:600;
   }
 
-  .topic p{line-height:1.75;margin:0 0 10px;font-size:15px;}
-  .topic ul{margin:0 0 10px;padding-inline-start:22px;line-height:1.7;font-size:15px;}
-  .topic ul li{margin-bottom:4px;}
-  .sub{font-weight:700;font-size:14.5px;margin:14px 0 4px;color:var(--ink);}
+  .topic p{line-height:1.78;margin:0 0 10px;font-size:15.5px;}
+  .topic ul{margin:0 0 10px;padding-inline-start:22px;line-height:1.72;font-size:15.5px;}
+  .topic ul li{margin-bottom:5px;}
+  .sub{font-weight:800;font-size:14.5px;margin:16px 0 6px;color:var(--topic-color, var(--ink));}
 
-  details.quiz{
-    margin-top:14px;
+  .quiz-block{
+    margin-top:18px;
     background:var(--surface-2);
     border:1px solid var(--line);
-    border-radius:10px;
-    padding:10px 14px;
+    border-radius:14px;
+    padding:16px 18px;
   }
-  details.quiz summary{
+  .quiz-block-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .quiz-block-head span{font-weight:800;font-size:14.5px;color:var(--topic-color, var(--gold));}
+  .quiz-nav-mini{display:flex;gap:5px;}
+  .quiz-nav-mini button{
+    width:22px;height:22px;border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--surface);
+    font-size:11px;font-weight:700;color:var(--ink-dim);
     cursor:pointer;
-    font-weight:600;
-    font-size:14px;
-    color:var(--gold);
   }
-  details.quiz .ans{
-    margin-top:8px;
-    padding-top:8px;
+  .quiz-nav-mini button.answered{background:var(--done);border-color:var(--done);color:#fff;}
+  .quiz-nav-mini button.current{outline:2px solid var(--topic-color, var(--gold));outline-offset:1px;}
+
+  .quiz-q{font-size:15px;font-weight:700;margin-bottom:10px;line-height:1.6;}
+  .quiz-opts{display:flex;flex-direction:column;gap:8px;}
+  .quiz-opt{
+    display:flex;align-items:flex-start;gap:10px;
+    text-align:right;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 13px;
+    font-size:14.5px;
+    line-height:1.5;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .quiz-opt:hover{border-color:var(--topic-color, var(--gold));}
+  .quiz-opt .letter{
+    flex:0 0 auto;
+    width:22px;height:22px;border-radius:50%;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-size:11.5px;font-weight:800;color:var(--ink-dim);
+  }
+  .quiz-opt.correct{border-color:var(--done);background:color-mix(in srgb, var(--done) 14%, var(--surface));}
+  .quiz-opt.correct .letter{background:var(--done);border-color:var(--done);color:#fff;}
+  .quiz-opt.wrong{border-color:var(--wrong);background:color-mix(in srgb, var(--wrong) 12%, var(--surface));}
+  .quiz-opt.wrong .letter{background:var(--wrong);border-color:var(--wrong);color:#fff;}
+  .quiz-opt[disabled]{cursor:default;}
+  .quiz-explain{
+    margin-top:10px;
+    padding-top:10px;
     border-top:1px dashed var(--line);
     font-size:14px;
-    line-height:1.65;
+    line-height:1.6;
     color:var(--ink-dim);
+    display:none;
   }
+  .quiz-explain.show{display:block;}
 
   footer.note{
-    max-width:1180px;
+    max-width:1200px;
     margin:0 auto;
-    padding:20px 0 40px;
+    padding:22px 0 40px;
     color:var(--ink-dim);
     font-size:13px;
     line-height:1.7;
     border-top:1px solid var(--line);
+  }
+
+  .fab{
+    position:fixed;
+    inset-inline-end:20px;
+    bottom:calc(20px + env(safe-area-inset-bottom, 0px));
+    z-index:40;
+    display:flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,var(--accent-2),var(--accent));
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:14px 20px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 14px 34px -12px rgba(0,0,0,.45);
+  }
+  .fab:hover{filter:brightness(1.07);}
+  .fab .emoji{font-size:19px;}
+
+  .modal-overlay{
+    position:fixed;inset:0;
+    background:rgba(20,15,8,.55);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+    z-index:60;
+  }
+  .modal-overlay[hidden]{display:none;}
+  .modal-box{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:20px;
+    max-width:520px;
+    width:100%;
+    padding:26px 26px 22px;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,.5);
+    position:relative;
+    max-height:88vh;
+    overflow-y:auto;
+  }
+  .modal-close{
+    position:absolute;top:14px;inset-inline-start:14px;
+    width:32px;height:32px;border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--surface-2);
+    color:var(--ink-dim);
+    font-size:16px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .modal-eyebrow{
+    font-size:12px;letter-spacing:.06em;color:var(--gold);font-weight:800;margin-bottom:6px;
+  }
+  .modal-box h3{font-size:20px;margin-bottom:14px;}
+  .surprise-fact{
+    font-size:15px;line-height:1.75;color:var(--ink);
+    background:var(--gold-soft);
+    border-radius:12px;
+    padding:14px 16px;
+    margin-bottom:14px;
+  }
+  .modal-again{
+    margin-top:6px;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 18px;
+    font-size:14px;font-weight:700;color:var(--ink);
+    cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
   }
 </style>
 
 <header class="top">
   <span class="eyebrow">מיקוד לבחינה &middot; מועד סתיו 2024</span>
   <h1>משפט עסקי — אתר לימוד ממוקד</h1>
-  <p>13 הנושאים המחייבים לבחינה, מרוכזים לפי סדר רשימת המיקוד: החקיקה הרלוונטית לכל נושא, תקציר עקרונות המפתח, ונקודות לחזרה עצמית. החומר לבחינה כולל חקיקה ראשית ופסיקה בקשר לנושאים המפורטים.</p>
-  <div class="progress-wrap">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <span id="progressLabel">0 / 13 נושאים סומנו כנלמדו</span>
+  <p>13 הנושאים המחייבים לבחינה, מרוכזים לפי סדר רשימת המיקוד: החקיקה הרלוונטית לכל נושא, תקציר עקרונות המפתח, וחידון קצר על סעיפי החוק בכל נושא. החומר לבחינה כולל חקיקה ראשית ופסיקה בקשר לנושאים המפורטים.</p>
+  <div class="stats-row">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span id="progressLabel">0 / 13 נושאים סומנו כנלמדו</span>
+    </div>
+    <div class="score-pill">חידונים: <b id="quizScore">0</b> / <span id="quizTotal">0</span> תשובות נכונות</div>
+    <button class="surprise-btn" id="surpriseTop" type="button"><span class="emoji">🎁</span> קופסת הפתעה</button>
   </div>
 </header>
 
@@ -262,11 +438,22 @@
 </div>
 
 <footer class="note">
-  מבוסס על "רשימת מיקוד לבחינה בנושא משפט עסקי החל ממועד סתיו 2024". התקציר נועד לארגון החומר ללמידה ואינו תחליף לקריאת הטקסט המלא של החוקים והפסיקה. סימוני ה"נלמד" נשמרים בדפדפן שלך בלבד.
+  מבוסס על "רשימת מיקוד לבחינה בנושא משפט עסקי החל ממועד סתיו 2024". התקציר והחידונים נועדו לארגון החומר ללמידה ואינם תחליף לקריאת הטקסט המלא של החוקים והפסיקה. כל הנתונים (התקדמות וציוני חידון) נשמרים בדפדפן שלך בלבד.
 </footer>
+
+<button class="fab" id="surpriseFab" type="button"><span class="emoji">🎁</span> הפתעה</button>
+
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal-box" id="modalBox" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" type="button" aria-label="סגור">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
 
 <script>
 (function(){
+  var palette = ["#8a2f2f","#1f5c52","#b1791f","#4a5c9e","#7a3f8a","#2f7a5c","#a14a2f","#3f5a8a","#8a5c1f","#5c2f8a","#2f8a6e","#8a2f5c","#4f7a2f"];
+
   var topics = [
     {
       tag:"נושא 1",
@@ -283,8 +470,17 @@
         "מבחן המידתיות: התאמה, נחיצות (אמצעי שפגיעתו פחותה), מידתיות במובן הצר.",
         "היחס בין זכויות יסוד לבין פסקת ההגבלה — פגיעה בחוק, ההולם את ערכי המדינה, לתכלית ראויה ובמידה שאינה עולה על הנדרש."
       ],
-      q:"מהי פסקת ההגבלה ומה תפקידה?",
-      a:"פסקת ההגבלה קובעת את התנאים לפגיעה חוקתית מותרת בזכויות יסוד: פגיעה בחוק (או לפיו מכוח הסמכה מפורשת), ההולמת את ערכי המדינה כמדינה יהודית ודמוקרטית, לתכלית ראויה, ובמידה שאינה עולה על הנדרש (מבחני המידתיות)."
+      mcq:[
+        {q:"מהם שלושת מבחני המשנה של מבחן המידתיות?",
+         o:["התאמה, נחיצות, מידתיות במובן הצר","סבירות, שוויון, תום לב","חוקיות, יעילות, שקיפות","עדיפות, קדימות, רישום"],
+         c:0, e:"מבחן המידתיות בוחן שהאמצעי הפוגעני מתאים להשגת התכלית (התאמה), שאין אמצעי חלופי פוגעני פחות (נחיצות), ושהתועלת עולה על הנזק (מידתיות במובן הצר)."},
+        {q:"על פי חוק חופש המידע, האם לכל מידע בידי רשות ציבורית קיימת זכות עיון ללא סייג?",
+         o:["כן, ללא כל חריג","לא — קיימים חריגים כגון ביטחון, פרטיות וסודות מסחריים","רק לעיתונאים מוסמכים","רק למידע שפורסם כבר באינטרנט"],
+         c:1, e:"החוק קובע זכות עקרונית לקבלת מידע, אך גם רשימת חריגים (ביטחון המדינה, יחסי החוץ, פרטיות, סודות מסחריים ועוד) שבהם ניתן לסרב למסור מידע."},
+        {q:"איזו מהעילות הבאה אינה עילת ביקורת שיפוטית מוכרת על החלטה מנהלית?",
+         o:["חוסר סמכות","שיקולים זרים","הפרת כללי הצדק הטבעי","אי-נוחות אישית של הפקיד המבצע"],
+         c:3, e:"עילות הביקורת המקובלות הן חוסר סמכות, שיקולים זרים, חוסר סבירות קיצוני והפרת כללי הצדק הטבעי — לא נוחותו האישית של המבצע."}
+      ]
     },
     {
       tag:"נושא 2",
@@ -302,8 +498,17 @@
         "משכון: זכות קניינית להבטחת חיוב, הנפרדת מהבעלות בנכס הממושכן; רישום ברשם המשכונות משפר עדיפות.",
         "פקודת החברות רלוונטית כאן בהיבט הקנייני של שעבודים על נכסי חברה (שעבוד צף/קבוע) ורישומם."
       ],
-      q:"מתי עוברת הבעלות בדירה מקבלן לרוכש, ומה מטרת חוק הבטחת השקעות?",
-      a:"הבעלות עוברת רק עם רישום הזכות בפנקס המקרקעין (או ברישום זכות חכירה מתאימה); עד אז לרוכש זכות חוזית. חוק הבטחת השקעות של רוכשי דירות מחייב את הקבלן להבטיח את כספי הרוכשים (ערבות בנקאית, ביטוח וכד׳) למקרה שהבנייה לא תושלם או שהזכות לא תירשם."
+      mcq:[
+        {q:"מתי לפי חוק המקרקעין נשלמת עסקה בזכות במקרקעין?",
+         o:["בחתימת החוזה","בתשלום מלוא התמורה","ברישום הזכות בפנקס המקרקעין","במסירת החזקה בנכס"],
+         c:2, e:"סעיף 7 לחוק המקרקעין קובע כי עסקה במקרקעין טעונה רישום, וכי היא נגמרת (הזכות הקניינית נשלמת) רק עם הרישום; עד אז קיימת זכות חוזית בלבד."},
+        {q:"בעסקאות נוגדות במקרקעין ללא רישום כלל, מי גובר בין שני רוכשים?",
+         o:["מי ששילם יותר","מי שקנה ראשון בזמן ובתום לב","מי שהחוזה שלו ארוך יותר","תמיד המוכר יכריע"],
+         c:1, e:"סעיף 9 לחוק המקרקעין: כשאין רישום, הזכות העדיפה היא של מי שרכש את זכותו ראשון בזמן, ובלבד שפעל בתום לב."},
+        {q:"מה נועד להבטיח חוק המכר (דירות)(הבטחת השקעות של רוכשי דירות)?",
+         o:["הפחתת מחיר הדירה","הבטחת כספי הרוכשים במקרה שהבנייה לא תושלם","קביעת שכר טרחת עורך דין","פטור ממס רכישה"],
+         c:1, e:"החוק מחייב את הקבלן להבטיח את כספי הרוכשים (למשל בערבות בנקאית או פוליסת ביטוח) למקרה שהבנייה לא תושלם או שהזכות לא תירשם."}
+      ]
     },
     {
       tag:"נושא 3",
@@ -321,8 +526,17 @@
         "תרופות בגין הפרת חוזה: אכיפה היא הסעד העיקרי, אך יש חריגים (אכיפה בלתי צודקת/בלתי אפשרית); פיצויי ציפייה נועדים להעמיד את הנפגע במצב שבו היה אילולא ההפרה.",
         "תנאי מקפח בחוזה אחיד נבחן ע״י בית הדין לחוזים אחידים או בית משפט, לפי מבחן ה״קיפוח״ מול הלקוח."
       ],
-      q:"מהם ארבעת הסעדים העיקריים בגין הפרת חוזה?",
-      a:"אכיפה (חיוב המפר לקיים את החוזה), ביטול החוזה, פיצויים (בדרך כלל פיצויי ציפייה), והשבה (החזרת מה שכל צד קיבל מכוח החוזה) — ניתן לעיתים לשלב כמה סעדים יחד."
+      mcq:[
+        {q:"מהו הסעד ה'עיקרי' על פי חוק החוזים (תרופות) בגין הפרת חוזה?",
+         o:["פיצויים בלבד","אכיפה","ביטול אוטומטי","מאסר על תנאי"],
+         c:1, e:"החוק מעדיף עקרונית את סעד האכיפה — חיוב המפר לקיים את החוזה — בכפוף לחריגים כגון אכיפה בלתי צודקת או בלתי אפשרית."},
+        {q:"מהם ארבעת היסודות הנדרשים להוכחת עוולת הרשלנות?",
+         o:["כוונה, מניע, נזק, זדון","חובת זהירות, התרשלות, נזק, קשר סיבתי","חוזה, הפרה, פיצוי, השבה","הצעה, קיבול, תמורה, גמירות דעת"],
+         c:1, e:"עוולת הרשלנות בפקודת הנזיקין דורשת חובת זהירות (מושגית וקונקרטית), התרשלות בפועל, נזק, וקשר סיבתי בין ההתרשלות לנזק."},
+        {q:"מה בוחן חוק החוזים האחידים כדי לפסול תנאי בחוזה אחיד?",
+         o:["האם התנאי ארוך מדי","האם התנאי מקפח את הלקוח מול הספק","האם החוזה נחתם בכתב יד","האם מדובר בחוזה עם המדינה"],
+         c:1, e:"בית הדין לחוזים אחידים או בית המשפט בוחנים האם תנאי בחוזה אחיד הוא 'תנאי מקפח' היוצר יתרון בלתי הוגן לספק על חשבון הלקוחות."}
+      ]
     },
     {
       tag:"נושא 4",
@@ -338,8 +552,17 @@
         "מקרה ביטוח שנגרם בכוונה — המבטח פטור מחבות; רשלנות רבתי — ניתן להפחית תגמולים לפי חומרת המקרה.",
         "בביטוח אחריות — הצד הניזוק אינו צד לחוזה הביטוח אך עשוי לתבוע ישירות את המבטח."
       ],
-      q:"מה ההבדל בין אי-גילוי בתום לב לבין אי-גילוי במרמה בעת כריתת חוזה הביטוח?",
-      a:"אי-גילוי תם לב (שהמבטח סביר לא היה מתקשר בגינו כלל, או רק בתנאים מכבידים) מקנה למבטח זכות להפחית את התגמולים ביחס שבין הפרמיה שהייתה משתלמת לפרמיה ששולמה בפועל, או לבטל את החוזה מראש. גילוי כוזב במרמה מאפשר למבטח לבטל את החוזה ולהיות פטור מתגמולים לחלוטין."
+      mcq:[
+        {q:"מה התוצאה של אי-גילוי בכוונת מרמה מצד המבוטח בעת כריתת חוזה הביטוח?",
+         o:["אין כל השפעה","המבטח רשאי לבטל את החוזה ולהיפטר מתגמולים","הפרמיה מוכפלת אוטומטית","המבוטח מקבל הנחה"],
+         c:1, e:"גילוי כוזב במרמה מקנה למבטח זכות לבטל את החוזה ולהיות פטור מתשלום תגמולי ביטוח, בשונה מאי-גילוי תם לב שמוביל להפחתה יחסית בלבד."},
+        {q:"מה קורה כאשר מקרה הביטוח נגרם בכוונה על ידי המבוטח?",
+         o:["המבטח משלם תגמולים מלאים","המבטח פטור מחבות","המבטח משלם מחצית מהסכום","נדרש אישור בית משפט לפני תשלום"],
+         c:1, e:"החוק פוטר את המבטח מחבות כאשר המבוטח גרם למקרה הביטוח בכוונה — זהו עיקרון יסוד בדיני ביטוח למניעת ניצול לרעה."},
+        {q:"בביטוח אחריות, האם הניזוק הצד השלישי הוא צד לחוזה הביטוח?",
+         o:["כן, תמיד", "לא, אך הוא עשוי לתבוע ישירות את המבטח", "רק אם שילם פרמיה", "רק בביטוח חיים"],
+         c:1, e:"בביטוח אחריות הניזוק אינו צד לחוזה בין המבטח למבוטח, אך החוק מקנה לו לעיתים זכות תביעה ישירה כלפי המבטח."}
+      ]
     },
     {
       tag:"נושא 5",
@@ -355,8 +578,17 @@
         "אחריות פלילית של תאגיד ונושאי משרה — רלוונטית ביותר להקשר העסקי (עבירות מכוח דיני ניירות ערך, הלבנת הון, הגבלים עסקיים).",
         "סייג הצידוק (הגנה עצמית/צורך) שולל את האחריות הפלילית כאשר מתקיימים תנאיו."
       ],
-      q:"מהם שני היסודות שיש להוכיח כדי להרשיע אדם בעבירה פלילית?",
-      a:"היסוד העובדתי — קיום המעשה/המחדל/הנסיבה כפי שמוגדר בעבירה, והיסוד הנפשי — מצבו הנפשי של הנאשם ביחס למעשה (מחשבה פלילית או רשלנות, לפי דרישת העבירה הספציפית)."
+      mcq:[
+        {q:"מהם שני היסודות שיש להוכיח להרשעה בעבירה פלילית?",
+         o:["היסוד העובדתי והיסוד הנפשי","היסוד הכספי והיסוד המנהלי","הכוונה והמניע בלבד","הנזק וההשבה"],
+         c:0, e:"יש להוכיח את היסוד העובדתי (המעשה/המחדל/הנסיבה) ואת היסוד הנפשי (מחשבה פלילית או רשלנות, בהתאם לדרישת העבירה)."},
+        {q:"מה ההבדל בין מחשבה פלילית לרשלנות בדיני העונשין?",
+         o:["אין הבדל","מחשבה פלילית דורשת מודעות בפועל; רשלנות נמדדת לפי סטייה מסטנדרט זהירות סביר","רשלנות חמורה יותר ממחשבה פלילית","מחשבה פלילית רלוונטית רק בעבירות רכוש"],
+         c:1, e:"מחשבה פלילית מחייבת שהנאשם היה מודע בפועל למעשה ולנסיבותיו; רשלנות נמדדת באופן אובייקטיבי — האם הנאשם סטה מרמת הזהירות שאדם סביר היה נוקט."},
+        {q:"איזה מהבאים הוא סייג לאחריות פלילית המוכר בחוק העונשין?",
+         o:["חוסר ידיעה בחוק","הגנה עצמית","הסכמת הקורבן לכל עבירה","היעדר עורך דין"],
+         c:1, e:"הגנה עצמית (וכן צורך וכורח) הם סייגים המוכרים בחוק העונשין השוללים אחריות פלילית בהתקיים תנאיהם."}
+      ]
     },
     {
       tag:"נושא 6",
@@ -374,8 +606,17 @@
         "ההבדל המרכזי: בבוררות יש הכרעה מחייבת (כמו פסק דין); בגישור אין הכרעה — רק הסכמה רצונית.",
         "פגישת מהו״ת נועדה לעודד יישוב מוקדם ולחסוך זמן שיפוטי, ובמקרים מסוימים היא תנאי דיוני להגשת תביעה."
       ],
-      q:"מה ההבדל המהותי בין בוררות לגישור?",
-      a:"בבוררות הבורר מכריע בסכסוך בהחלטה מחייבת (בדומה לפסק דין), ואילו בגישור המגשר רק מסייע לצדדים להגיע בעצמם להסכמה — ואין לו סמכות להכריע; ההסכם המושג בגישור מחייב רק אם הצדדים חתמו עליו."
+      mcq:[
+        {q:"מה מקנה בורר מוסמך לצדדים בסיום הליך בוררות?",
+         o:["המלצה בלבד","הכרעה מחייבת בדומה לפסק דין","הצעת פשרה שאינה מחייבת","דחיית התביעה אוטומטית"],
+         c:1, e:"בוררות מסתיימת בפסק בורר מחייב, הניתן לאישור בית המשפט וברור רק בעילות ביטול מצומצמות שבחוק הבוררות."},
+        {q:"מהי פגישת מהו״ת?",
+         o:["פגישת גישור חובה טרם הגשת תביעות מסוימות","ישיבת הוכחות ראשונה","פגישה בין עורכי הדין בלבד ללא הצדדים","הליך ערעור מזורז"],
+         c:0, e:"פגישת מהו״ת (מידע, היכרות ותיאום) היא פגישת חובה טרם הגשת תביעות מסוימות, שמטרתה לבחון אפשרות ליישוב הסכסוך מחוץ לכותלי בית המשפט."},
+        {q:"מהי אחת העילות המוכרות לביטול פסק בורר?",
+         o:["חוסר שביעות רצון מהתוצאה","חריגת הבורר מסמכותו","טעות חישובית פעוטה שאינה משנה תוצאה","הבורר גבה שכר טרחה"],
+         c:1, e:"עילות הביטול בחוק הבוררות מצומצמות וכוללות בין היתר חריגה מסמכות, אי מתן הזדמנות נאותה לטעון והפרת כללי צדק טבעי."}
+      ]
     },
     {
       tag:"נושא 7",
@@ -392,8 +633,17 @@
         "סיחור שטר: העברת שטר 'לפקודת' פלוני נעשית בהסבה (חתימת גב) ומסירה; שטר 'למוכ״ז' עובר במסירה בלבד.",
         "תקרות המזומן בחוק צמצום השימוש במזומן שונות בעסקאות בין עוסקים לבין יחידים שאינם עוסקים."
       ],
-      q:"מהי המשמעות המעשית של מעמד 'אוחז כשורה' בשטר?",
-      a:"אוחז כשורה — מי שקיבל שטר תקין על פניו, בתום לב ותמורה, לפני שפג מועד פירעונו וללא ידיעה על פגם בזכות הקניין של מי שהסב לו אותו — זוכה בזכות מלאה בשטר, חסינה מפני רוב הטענות וההגנות שיכול היה החייב להעלות כלפי הצדדים הקודמים לשטר."
+      mcq:[
+        {q:"מהי ההגנה המרכזית שמעניקה פקודת השטרות ל'אוחז כשורה'?",
+         o:["פטור ממס","חסינות מפני רוב הטענות שהיו יכולות לעמוד כלפי צד קודם לשטר","זכות לבטל את השטר בכל עת","עדיפות אוטומטית בפשיטת רגל"],
+         c:1, e:"אוחז כשורה — מי שקיבל שטר תקין, בתום לב ותמורה, לפני מועד פירעונו — מוגן מפני רוב הטענות וההגנות שהחייב יכול היה להעלות כלפי צדדים קודמים."},
+        {q:"מה מטרתו העיקרית של חוק צמצום השימוש במזומן?",
+         o:["להגדיל את הכנסות המדינה ממע״מ","להיאבק בהון השחור ובהלבנת הון על ידי הגבלת עסקאות במזומן","לעודד שימוש בשטרות כסף גדולים","לבטל את השימוש בכרטיסי אשראי"],
+         c:1, e:"החוק מגביל עסקאות במזומן מעל תקרות מסוימות כאמצעי מרכזי למאבק בהון השחור ובהלבנת הון, ומסייע במעקב אחר תנועות כספים."},
+        {q:"כיצד מסוחר שטר שנכתב 'לפקודת' אדם מסוים?",
+         o:["במסירה בלבד","בהסבה (חתימת גב) ומסירה","רק בהחלטת בית משפט","אינו ניתן לסיחור כלל"],
+         c:1, e:"שטר 'לפקודת' פלוני מסוחר באמצעות הסבה — חתימת גב השטר על ידי האוחז — ולאחריה מסירה לנעבר; שטר 'למוכ״ז' לעומת זאת עובר במסירה בלבד."}
+      ]
     },
     {
       tag:"נושא 8",
@@ -409,8 +659,17 @@
         "בהיעדר הסכמה חוזית על שיעור ריבית, יחול שיעור ברירת המחדל הקבוע בתקנות מכוח החוק.",
         "יש להבחין בין ריבית פיגורים (על איחור בתשלום) לבין ריבית הסכמית רגילה."
       ],
-      q:"מה תפקידה של הצמדה למדד, בשונה מריבית?",
-      a:"הצמדה למדד נועדה לשמר את הערך הריאלי (כוח הקנייה) של סכום כסף מסוים על ידי עדכונו בהתאם לשינויים במדד המחירים; ריבית, לעומת זאת, היא תמורה נפרדת המשולמת בעבור עצם השימוש בכסף (למשל, בהלוואה) — שתי הרכיבים יכולים לחול יחד על אותו חוב."
+      mcq:[
+        {q:"מהי מטרת ה'הצמדה' לפי חוק פסיקת ריבית והצמדה?",
+         o:["להעניש את החייב","לשמר את הערך הריאלי של הכסף לאורך זמן","להגדיל את סמכויות בית המשפט","לבטל חובות ישנים"],
+         c:1, e:"הצמדה למדד נועדה לשמור על כוח הקנייה הריאלי של סכום כסף, על ידי התאמתו לשינויים במדד המחירים לצרכן לאורך זמן."},
+        {q:"מה קורה אם הצדדים לא קבעו בחוזה שיעור ריבית מוסכם?",
+         o:["לא תיפסק כל ריבית","יחול שיעור ברירת המחדל שנקבע בתקנות מכוח החוק","הריבית תיקבע על ידי הבנק בלבד","החוזה בטל מעיקרו"],
+         c:1, e:"בהיעדר הסכמה חוזית מפורשת על שיעור הריבית, יחול שיעור ברירת המחדל ('ריבית והצמדה כחוק') הקבוע בתקנות מכוח חוק פסיקת ריבית והצמדה."},
+        {q:"האם ריבית והצמדה יכולות לחול יחד על אותו חוב?",
+         o:["לא, הן חלופיות בלבד","כן, שני הרכיבים יכולים לחול במקביל על אותו חוב","רק בחוזי מקרקעין","רק בפסקי דין פליליים"],
+         c:1, e:"ריבית והצמדה הן שני רכיבים נפרדים במהותם (תמורה על שימוש בכסף מול שימור ערך ריאלי) והם יכולים לחול במצטבר על אותו חוב."}
+      ]
     },
     {
       tag:"נושא 9",
@@ -426,8 +685,17 @@
         "תוכנית העבודה השנתית/רב-שנתית של הביקורת הפנימית מאושרת ע״י ועדת הביקורת.",
         "הביקורת הפנימית שונה מביקורת חיצונית (רו״ח מבקר) — עוסקת בבקרות פנים, ניהול סיכונים וממשל תאגידי."
       ],
-      q:"מדוע חשובה עצמאותו המוסדית של המבקר הפנימי?",
-      a:"מכיוון שתפקידו לבחון את פעילות הארגון עצמו — לרבות פעולות ההנהלה — עצמאות ואי-תלות (מינוי ופיטורין באישור ועדת ביקורת/דירקטוריון, ולא כפיפות ניהולית שוטפת להנהלה) מבטיחים שממצאיו יהיו אובייקטיביים ולא מוטים משיקולים של הגורם המבוקר."
+      mcq:[
+        {q:"למי כפוף המבקר הפנימי מקצועית לפי חוק הביקורת הפנימית?",
+         o:["למנכ״ל החברה","לוועדת הביקורת/הדירקטוריון","לסמנכ״ל הכספים","ללקוחות החברה"],
+         c:1, e:"כדי להבטיח עצמאות ואי-תלות, המבקר הפנימי כפוף מקצועית לוועדת הביקורת/הדירקטוריון, ולא לגורם המבוקר (כגון ההנהלה השוטפת)."},
+        {q:"מי מאשר את תוכנית העבודה של הביקורת הפנימית?",
+         o:["המבקר הפנימי בעצמו וללא פיקוח","ועדת הביקורת","משרד המשפטים","האסיפה הכללית של בעלי המניות בלבד"],
+         c:1, e:"תוכנית העבודה השנתית או הרב-שנתית של הביקורת הפנימית טעונה אישור ועדת הביקורת, כחלק ממנגנון הפיקוח על פעילותה."},
+        {q:"מה עיקר עיסוקה של הביקורת הפנימית, בשונה מביקורת חיצונית (רו״ח מבקר)?",
+         o:["בדיקת הדוחות הכספיים בלבד","בקרות פנים, ניהול סיכונים וממשל תאגידי","גביית מסים","ייצוג החברה בבית משפט"],
+         c:1, e:"בעוד ביקורת חיצונית מתמקדת בעיקר באימות הדוחות הכספיים, הביקורת הפנימית עוסקת בבחינת בקרות פנים, ניהול סיכונים, יעילות ותקינות הפעילות הארגונית."}
+      ]
     },
     {
       tag:"נושא 10",
@@ -443,8 +711,17 @@
         "ועדת המכרזים בוחנת את ההצעות לפי אמות המידה שפורסמו מראש בלבד — אין להכניס שיקולים חדשים בדיעבד.",
         "פגם מהותי בהליך המכרז (כגון אי-שוויון) עשוי להביא לפסילת הזכייה גם אם ההצעה הזוכה הייתה הטובה ביותר כלכלית."
       ],
-      q:"מהו העיקרון המרכזי שעליו מבוססים דיני המכרזים?",
-      a:"עקרון השוויון בין המציעים — הבטחת הזדמנות שווה והוגנת לכל המתמודדים הפוטנציאליים על ההתקשרות עם הגוף הציבורי, לצד שמירה על טוהר המידות והשגת התמורה הטובה ביותר לכספי הציבור."
+      mcq:[
+        {q:"מהו העיקרון המרכזי העומד בבסיס דיני המכרזים?",
+         o:["עקרון השוויון בין המציעים","עקרון המהירות בלבד","עקרון החיסיון המוחלט","עקרון עדיפות הספק הקבוע"],
+         c:0, e:"עקרון השוויון בין המציעים הוא לב ליבם של דיני המכרזים, המבטיח הזדמנות שווה והוגנת לכל המתמודדים הפוטנציאליים."},
+        {q:"מה קורה כאשר ועדת מכרזים משנה את תנאי הסף לאחר פרסום המכרז?",
+         o:["אין בכך כל פגם","הדבר עלול לפסול את ההליך בשל פגיעה בשוויון","זה מותר תמיד בהסכמת המציעים","נדרש רק עדכון קל באתר"],
+         c:1, e:"שינוי תנאי סף לאחר פרסום המכרז עלול לפגוע בעקרון השוויון בין המציעים שהסתמכו על התנאים המקוריים, ולהוות עילה לפסילת ההליך."},
+        {q:"מה עשוי לקרות אם נפל פגם מהותי בהליך המכרז, גם אם ההצעה הזוכה הייתה הטובה ביותר כלכלית?",
+         o:["הזכייה תישאר בתוקף תמיד","הזכייה עלולה להיפסל בשל הפגם ההליכי","המחיר יעודכן אוטומטית","ייקבע קנס בלבד לוועדה"],
+         c:1, e:"פגם מהותי בהליך (כגון פגיעה בשוויון) עלול להביא לפסילת הזכייה גם אם מבחינה כלכלית ההצעה הזוכה הייתה עדיפה, מפני שההליך עצמו חייב להיות תקין."}
+      ]
     },
     {
       tag:"נושא 11",
@@ -460,8 +737,17 @@
         "מאגר נתוני האשראי מנוהל תחת פיקוח ומחייב הגנת פרטיות מחמירה — ללקוח זכות עיון ותיקון במידע עליו.",
         "מטרת שני החוקים במשולב: הרחבת הנגישות לאשראי תוך הגנה על הלווה מפני ריבית קיצונית וניצול פערי מידע."
       ],
-      q:"מה תכליתו של חוק נתוני אשראי?",
-      a:"להקים מערכת משותפת לשיתוף מידע על היסטוריית האשראי וההחזרים של לווים, כך שנותני אשראי יוכלו להעריך סיכון בצורה מדויקת יותר ולהציע תנאי אשראי הוגנים יותר, במקביל להבטחת פרטיות הלקוח וזכויותיו במידע המתנהל עליו."
+      mcq:[
+        {q:"מה מסדיר חוק אשראי הוגן בעיקר?",
+         o:["מיסוי חברות","מתן אשראי חוץ-בנקאי, לרבות תקרת ריבית מרבית וחובות גילוי","רישוי בנקים","דיני ירושה"],
+         c:1, e:"חוק אשראי הוגן מסדיר את תחום האשראי החוץ-בנקאי, וקובע חובות גילוי, תקרת ריבית מרבית ואיסור הטעיה של לווים כלפי נותני אשראי חוץ-בנקאיים."},
+        {q:"מהי מטרתו העיקרית של חוק נתוני אשראי?",
+         o:["למנוע כל שיתוף מידע פיננסי","להקים מערכת לשיתוף נתוני אשראי בין נותני אשראי תוך הגנה על פרטיות הלקוח","לבטל את הצורך בבדיקת יכולת החזר","להעניק לבנקים בלעדיות על מידע אשראי"],
+         c:1, e:"החוק הקים מערכת משותפת לשיתוף היסטוריית האשראי וההחזרים, המאפשרת הערכת סיכון מדויקת יותר ותנאי אשראי הוגנים, במקביל להגנה על פרטיות הלקוח וזכויותיו במידע."},
+        {q:"כיצד נקבעת תקרת הריבית המרבית באשראי חוץ-בנקאי?",
+         o:["ריבית קבועה של 100% לכל המלווים","בהצמדה לריבית בנק ישראל בתוספת שיעור מרבי הקבוע בחוק","לפי החלטת המלווה בלבד","אין תקרה כלל"],
+         c:1, e:"החוק קובע תקרת ריבית מרבית הנגזרת מריבית בנק ישראל בתוספת שיעור נוסף הקבוע בחוק, כדי למנוע ריבית נשך ולהגן על הלווים."}
+      ]
     },
     {
       tag:"נושא 12",
@@ -477,8 +763,17 @@
         "חובת דיווח על פעולה בלתי רגילה (חשודה) ועל עסקאות במזומן/שווה-ערך מעל תקרות שנקבעו בתקנות.",
         "עבירת הלבנת הון היא עבירת 'מקור' נפרדת מהעבירה שיצרה את הרכוש (עבירת המקור), ונדרש קשר בין הפעולה למקור פלילי."
       ],
-      q:"מהי חובת ה'הכר את הלקוח' ומדוע היא מרכזית בחוק?",
-      a:"חובת הכר את הלקוח (KYC) מחייבת גופים מחויבים (כגון בנקים) לזהות את זהות הלקוח ובעלי השליטה בו ולבחון את מקור הכספים בטרם ביצוע פעולות, כדי לאפשר איתור מוקדם של ניסיונות להלבין רכוש שמקורו בפעילות פלילית ולמנוע ניצול המערכת הפיננסית לצורך זה."
+      mcq:[
+        {q:"מהי מטרתו המרכזית של חוק איסור הלבנת הון?",
+         o:["לעודד השקעות זרות","לאסור ביצוע פעולות ברכוש שמקורו בעבירה במטרה להסתיר את מקורו","להגביל הלוואות בין בני משפחה","לפקח על שוק ההון בלבד"],
+         c:1, e:"החוק אוסר על ביצוע פעולות ברכוש אסור במטרה להסוות את מקורו הפלילי, ומטיל חובות זיהוי ודיווח על גופים מחויבים כדי לחשוף פעילות כזו."},
+        {q:"מהי חובת 'הכר את הלקוח' (KYC)?",
+         o:["חובה למכור מוצרים ללקוח מוכר בלבד","חובת זיהוי הלקוח ובעל השליטה בו ובחינת מקור הכספים","חובה לפרסם את שם הלקוח באתר הבנק","חובה לגבות ערבות מהלקוח"],
+         c:1, e:"חובת ה-KYC מחייבת גופים מחויבים (כגון בנקים) לזהות את זהות הלקוח ובעלי השליטה בו ולבחון את מקור הכספים לפני ביצוע פעולות עבורו."},
+        {q:"מה מאפיין את עבירת הלבנת ההון ביחס ל'עבירת המקור'?",
+         o:["מדובר באותה עבירה בדיוק","זו עבירה נפרדת, שנדרש קשר בינה לבין מקור פלילי של הרכוש","היא חלה רק על עבירות מס","היא מתיישנת מיד"],
+         c:1, e:"עבירת הלבנת הון היא עבירה עצמאית ונפרדת מעבירת המקור (העבירה שיצרה את הרכוש), אך נדרש להוכיח קשר בין הפעולה ברכוש למקורו הפלילי."}
+      ]
     },
     {
       tag:"נושא 13",
@@ -496,28 +791,45 @@
         "'התאמת הייעוץ' — על הבנק להכיר את פרופיל הסיכון והצרכים של הלקוח לפני מתן המלצת השקעה.",
         "הפרת חובת הגילוי הנאות עשויה להקים ללקוח עילת תביעה נפרדת גם בהיעדר נזק ישיר מוכח, בהתאם לנסיבות."
       ],
-      q:"מדוע מוטלות על בנק חובות הגינות מוגברות ביחסיו עם לקוח, מעבר לדיני חוזים כלליים?",
-      a:"בשל פערי הכוח והמידע המובנים בין הבנק ללקוח (הבנק הוא גוף מקצועי ובעל עוצמה כלכלית, מול לקוח שלעיתים חסר ידע פיננסי), מטיל הדין על הבנק חובות אמון, זהירות וגילוי נאות החורגות מהחובות הרגילות בין צדדים לחוזה, כדי לאזן את פערי הכוחות ולהגן על הלקוח."
+      mcq:[
+        {q:"מדוע חלות על בנק חובות הגינות מוגברות כלפי לקוחותיו?",
+         o:["בגלל פערי הכוח והמידע בין הבנק ללקוח","כי כך נוח לבנק","כי המדינה בעלת הבנק","אין חובות הגינות מיוחדות לבנקים"],
+         c:0, e:"בשל פערי הכוח והמידע המובנים בין גוף בנקאי מקצועי ובעל עוצמה כלכלית לבין לקוח שלעיתים חסר ידע פיננסי, מטיל הדין על הבנק חובות הגינות, אמון וגילוי נאות מוגברות."},
+        {q:"מה דורשת חובת 'התאמת הייעוץ' בכללי הבנקאות (ייעוץ להשקעות)?",
+         o:["להמליץ תמיד על אותו מוצר לכל הלקוחות","להכיר את פרופיל הסיכון והצרכים של הלקוח לפני מתן המלצת השקעה","להימנע ממתן כל ייעוץ","לגבות עמלה קבועה בלבד"],
+         c:1, e:"על הבנק להכיר את מצבו הפיננסי, צרכיו ורמת הסיכון המתאימה ללקוח, ולהתאים את הייעוץ שהוא נותן לפרופיל האישי שלו."},
+        {q:"על מה מבוססת פקודת הבנקאות, 1941?",
+         o:["דיני מיסים","הבסיס הרגולטורי להקמת תאגידים בנקאיים ולפיקוח עליהם","דיני עבודה בבנקים","דיני ירושה של פיקדונות"],
+         c:1, e:"פקודת הבנקאות מהווה את המסגרת הרגולטורית הבסיסית להקמת תאגידים בנקאיים, רישוים ופיקוח על יציבותם והונם העצמי."}
+      ]
     }
   ];
 
   var toc = document.getElementById('toc');
   var main = document.getElementById('main');
-  var STORAGE_KEY = 'biz-law-progress-v1';
+  var STORAGE_KEY = 'biz-law-progress-v2';
+  var QUIZ_KEY = 'biz-law-quiz-v2';
 
-  function loadDone(){
-    try{
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    }catch(e){ return {}; }
+  function loadJSON(key, fallback){
+    try{ return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+    catch(e){ return fallback; }
   }
-  function saveDone(done){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(done)); }catch(e){}
+  function saveJSON(key, val){
+    try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){}
   }
 
-  var done = loadDone();
+  var done = loadJSON(STORAGE_KEY, {});
+  var quizState = loadJSON(QUIZ_KEY, {});
+
+  var allQuestions = [];
 
   topics.forEach(function(t, i){
     var id = 'topic-' + (i+1);
+    var color = palette[i % palette.length];
+
+    t.mcq.forEach(function(m, qi){
+      allQuestions.push({topicIndex:i, qIndex:qi, title:t.title, tag:t.tag, m:m});
+    });
 
     var link = document.createElement('a');
     link.href = '#' + id;
@@ -528,10 +840,13 @@
     var section = document.createElement('section');
     section.className = 'topic';
     section.id = id;
+    section.style.setProperty('--topic-color', color);
 
     var lawsHtml = t.laws.map(function(l){ return '<span>' + l + '</span>'; }).join('');
     var bodyHtml = t.body.map(function(p){ return '<p>' + p + '</p>'; }).join('');
     var pointsHtml = t.points.map(function(p){ return '<li>' + p + '</li>'; }).join('');
+
+    var quizNavHtml = t.mcq.map(function(_, qi){ return '<button type="button" data-qi="' + qi + '">' + (qi+1) + '</button>'; }).join('');
 
     section.innerHTML =
       '<div class="topic-head">' +
@@ -542,10 +857,12 @@
       bodyHtml +
       '<div class="sub">' + t.sub + '</div>' +
       '<ul>' + pointsHtml + '</ul>' +
-      '<details class="quiz"><summary>שאלת חזרה עצמית</summary>' +
-        '<div>' + t.q + '</div>' +
-        '<div class="ans">' + t.a + '</div>' +
-      '</details>';
+      '<div class="quiz-block" data-topic="' + id + '">' +
+        '<div class="quiz-block-head"><span>חידון: סעיפי החוק בנושא זה</span><div class="quiz-nav-mini">' + quizNavHtml + '</div></div>' +
+        '<div class="quiz-q"></div>' +
+        '<div class="quiz-opts"></div>' +
+        '<div class="quiz-explain"></div>' +
+      '</div>';
 
     main.appendChild(section);
 
@@ -559,10 +876,73 @@
     refreshBtn();
     btn.addEventListener('click', function(){
       done[id] = !done[id];
-      saveDone(done);
+      saveJSON(STORAGE_KEY, done);
       refreshBtn();
       updateProgress();
     });
+
+    var qb = section.querySelector('.quiz-block');
+    var curQi = 0;
+    function stateKey(qi){ return id + ':' + qi; }
+
+    function renderQuiz(qi){
+      curQi = qi;
+      var m = t.mcq[qi];
+      var qEl = qb.querySelector('.quiz-q');
+      var optsEl = qb.querySelector('.quiz-opts');
+      var explainEl = qb.querySelector('.quiz-explain');
+      var letters = ['א','ב','ג','ד'];
+
+      qEl.textContent = m.q;
+      explainEl.classList.remove('show');
+      explainEl.textContent = 'הסבר: ' + m.e;
+      optsEl.innerHTML = '';
+
+      var answered = quizState[stateKey(qi)];
+
+      m.o.forEach(function(optText, oi){
+        var optBtn = document.createElement('button');
+        optBtn.type = 'button';
+        optBtn.className = 'quiz-opt';
+        optBtn.innerHTML = '<span class="letter">' + letters[oi] + '</span><span>' + optText + '</span>';
+        optsEl.appendChild(optBtn);
+
+        if(answered !== undefined){
+          optBtn.disabled = true;
+          if(oi === m.c) optBtn.classList.add('correct');
+          if(oi === answered && answered !== m.c) optBtn.classList.add('wrong');
+          explainEl.classList.add('show');
+        }
+
+        optBtn.addEventListener('click', function(){
+          if(quizState[stateKey(qi)] !== undefined) return;
+          quizState[stateKey(qi)] = oi;
+          saveJSON(QUIZ_KEY, quizState);
+          renderQuiz(qi);
+          updateQuizNav();
+          updateScore();
+        });
+      });
+
+      updateQuizNav();
+    }
+
+    function updateQuizNav(){
+      var navBtns = qb.querySelectorAll('.quiz-nav-mini button');
+      navBtns.forEach(function(b){
+        var qi = parseInt(b.getAttribute('data-qi'), 10);
+        b.classList.toggle('answered', quizState[stateKey(qi)] !== undefined);
+        b.classList.toggle('current', qi === curQi);
+      });
+    }
+
+    qb.querySelectorAll('.quiz-nav-mini button').forEach(function(b){
+      b.addEventListener('click', function(){
+        renderQuiz(parseInt(b.getAttribute('data-qi'), 10));
+      });
+    });
+
+    renderQuiz(0);
   });
 
   function updateProgress(){
@@ -574,6 +954,23 @@
     document.getElementById('progressLabel').textContent = count + ' / ' + topics.length + ' נושאים סומנו כנלמדו';
   }
   updateProgress();
+
+  function updateScore(){
+    var correct = 0, total = 0;
+    Object.keys(quizState).forEach(function(k){
+      total++;
+    });
+    topics.forEach(function(t, i){
+      var id = 'topic-' + (i+1);
+      t.mcq.forEach(function(m, qi){
+        var ans = quizState[id + ':' + qi];
+        if(ans !== undefined && ans === m.c) correct++;
+      });
+    });
+    document.getElementById('quizScore').textContent = correct;
+    document.getElementById('quizTotal').textContent = total;
+  }
+  updateScore();
 
   var navLinks = Array.prototype.slice.call(toc.querySelectorAll('a'));
   var sections = Array.prototype.slice.call(main.querySelectorAll('.topic'));
@@ -587,5 +984,72 @@
     });
   }, {rootMargin:'-20% 0px -70% 0px'});
   sections.forEach(function(s){ io.observe(s); });
+
+  var funFacts = [
+    "אוחז כשורה בשטר יכול לזכות בזכות מלאה גם אם הצד שהעביר לו את השטר קיבל אותו שלא כדין — זהו אחד העקרונות העתיקים ביותר בדיני מסחר, שנועד לעודד סחירות שטרות ככסף.",
+    "פגישת מהו״ת (מידע, היכרות ותיאום) יכולה להיות תנאי דיוני שבלעדיו התביעה לא תתקבל להגשה בבתי משפט מסוימים — המחוקק מעדיף שתיישבו את הסכסוך לפני שתגיעו לאולם בית המשפט.",
+    "בביטוח, אם המבוטח שיקר במרמה בשאלון הביטוח, המבטח לא רק פטור מתשלום — הוא אף רשאי לבטל את הפוליסה כאילו לא הייתה קיימת מעולם.",
+    "עקרון השוויון במכרזים כה נוקשה, שגם אם ההצעה הזוכה הייתה הכי משתלמת כלכלית, פגם הליכי (כמו העדפה נסתרת) עלול לבטל את הזכייה כולה.",
+    "חוק צמצום השימוש במזומן חל גם על עסקאות בין אנשים פרטיים שאינם עוסקים — לא רק על עסקים, אלא גם למשל ברכישת רכב יד שנייה.",
+    "מבקר פנימי בארגון אינו כפוף מקצועית למנכ״ל, אלא לוועדת הביקורת או לדירקטוריון — בדיוק כדי שיוכל, תיאורטית, לבקר גם את המנכ״ל עצמו.",
+    "חובת 'הכר את הלקוח' בחוק איסור הלבנת הון חלה גם על עורכי דין ורואי חשבון במקרים מסוימים — לא רק על בנקים וחברות כרטיסי אשראי.",
+    "זכות במקרקעין נחשבת מושלמת רק עם רישום בטאבו — מי שחתם על חוזה רכישת דירה אך טרם נרשם, מחזיק (לעת עתה) רק בזכות חוזית ולא בזכות קניינית מלאה.",
+    "בחוזה אחיד, אין צורך שהלקוח בפועל ידע או יבין את התנאי המקפח — מספיק שהתנאי יוצר יתרון בלתי הוגן לספק כדי שיהיה ניתן לתקוף אותו.",
+    "ריבית והצמדה יכולות לחול יחד על אותו חוב בו-זמנית: ההצמדה שומרת על ערך הקרן, והריבית היא תוספת נפרדת בעבור השימוש בכסף."
+  ];
+
+  var overlay = document.getElementById('modalOverlay');
+  var modalContent = document.getElementById('modalContent');
+  var modalClose = document.getElementById('modalClose');
+
+  function openModal(){ overlay.hidden = false; }
+  function closeModal(){ overlay.hidden = true; }
+  modalClose.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !overlay.hidden) closeModal(); });
+
+  function showSurprise(){
+    var roll = Math.random();
+    if(roll < 0.5 && allQuestions.length){
+      var pick = allQuestions[Math.floor(Math.random() * allQuestions.length)];
+      var letters = ['א','ב','ג','ד'];
+      var optsHtml = pick.m.o.map(function(opt, oi){
+        return '<button type="button" class="quiz-opt" data-oi="' + oi + '"><span class="letter">' + letters[oi] + '</span><span>' + opt + '</span></button>';
+      }).join('');
+      modalContent.innerHTML =
+        '<div class="modal-eyebrow">🎁 שאלת הפתעה &middot; ' + pick.tag + '</div>' +
+        '<h3>' + pick.title + '</h3>' +
+        '<div class="quiz-q">' + pick.m.q + '</div>' +
+        '<div class="quiz-opts">' + optsHtml + '</div>' +
+        '<div class="quiz-explain" id="surpriseExplain">הסבר: ' + pick.m.e + '</div>' +
+        '<button class="modal-again" id="surpriseAgain" type="button">עוד הפתעה 🎲</button>';
+
+      modalContent.querySelectorAll('.quiz-opt').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var oi = parseInt(btn.getAttribute('data-oi'), 10);
+          modalContent.querySelectorAll('.quiz-opt').forEach(function(b, bi){
+            b.disabled = true;
+            if(bi === pick.m.c) b.classList.add('correct');
+          });
+          if(oi !== pick.m.c) btn.classList.add('wrong');
+          document.getElementById('surpriseExplain').classList.add('show');
+        });
+      });
+    } else {
+      var fact = funFacts[Math.floor(Math.random() * funFacts.length)];
+      modalContent.innerHTML =
+        '<div class="modal-eyebrow">🎁 עובדה מפתיעה</div>' +
+        '<h3>ידעת?</h3>' +
+        '<div class="surprise-fact">' + fact + '</div>' +
+        '<button class="modal-again" id="surpriseAgain" type="button">עוד הפתעה 🎲</button>';
+    }
+
+    var again = document.getElementById('surpriseAgain');
+    if(again) again.addEventListener('click', showSurprise);
+    openModal();
+  }
+
+  document.getElementById('surpriseTop').addEventListener('click', showSurprise);
+  document.getElementById('surpriseFab').addEventListener('click', showSurprise);
 })();
 </script>
